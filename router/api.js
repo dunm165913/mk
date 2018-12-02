@@ -505,25 +505,25 @@ router.route('/edit_products').post((req, res) => {
         })
     }
     else {
-let a=req.body.price
+        let a = req.body.price
         console.log(a.length);
         Product.findOne({
-            id:req.body.id
-        },(err,ok)=>{
-            if(err) throw err;
-            if(ok){
+            id: req.body.id
+        }, (err, ok) => {
+            if (err) throw err;
+            if (ok) {
                 Product.updateOne({
-                    id:req.body.id
-                },{
-                    price:req.body.price.length>0?req.body.price:ok.price,
-                    numberproduct:req.body.numberproduct.length>0?req.body.numberproduct:ok.numberproduct
-                },(err,oku)=>{
-                    if(err) throw err;
-                    res.json({
-                        code:1000,
-                        message:"ok"
+                    id: req.body.id
+                }, {
+                        price: req.body.price.length > 0 ? req.body.price : ok.price,
+                        numberproduct: req.body.numberproduct.length > 0 ? req.body.numberproduct : ok.numberproduct
+                    }, (err, oku) => {
+                        if (err) throw err;
+                        res.json({
+                            code: 1000,
+                            message: "ok"
+                        })
                     })
-                })
             }
         })
     }
@@ -1938,6 +1938,36 @@ router.route('/store').post((req, res) => {
             })
         }
 
+    })
+})
+router.route('/free_product').post((req, res) => {
+    Product.find({
+        price: 0
+    }, (err, ok) => {
+        if (err) throw err;
+        let rs = [];
+
+        let count = req.body.count;
+        let index = ok.length - 1 - req.body.index;
+        for (let i = ok.length - 1; i >= 0; i--) {
+            if (index == i) {
+                for (let j = i; j >= 0; j--) {
+                    ok[j].img = "";
+                    ok[j].described = "";
+                    ok[j].comment = "";
+                    ok[j].like = "";
+                    ok[j].dislike = "";
+                    ok[j].rate = "";
+
+                    rs.push(ok[j]);
+
+                    count--;
+                    if (count == 0) break;
+
+                }
+            }
+            break;
+        }
     })
 })
 module.exports = router;
