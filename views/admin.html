@@ -1,0 +1,712 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .top_header_wrapper {
+                
+                height:34px ;
+                background-color: #f16e8e;
+            }
+            .top_header_wrapper .top_header_group {
+                margin-left: -15px;
+                margin-right: -15px;
+                height: 34px;
+            }
+            .top_header_wrapper .top_header_group .top_header {
+                display: inline-block;
+                *display: block;
+                zoom: 1;
+                width: 100%;
+                height: 34px;
+            }
+            .top_header {
+                margin-left: 200px;
+                height: 34px;
+                line-height: 34px;
+                color: #fff;
+            }
+            .top_header_wrapper .top_header_group .top_header>div.right-area {
+                height: 34px;
+                float: right;
+                /* text-align: right; */
+            }
+            .main-header {
+                background: #fff;
+                height:150px;
+                box-shadow: 0px 2px 10px -5px #343434;
+                margin-bottom: 1px;
+            }
+            .search{
+                border-radius: 30px;
+                border: 1px solid#ff789e;
+                height:40px;
+                width: 50%;
+                margin-top: 30px;
+                background-color: #ffffff;
+            }
+            .search_input{
+                border:0px solid #ffffff;
+                margin-top: 5px;
+                font-size: 130%;
+                width: 90%;
+            }
+            .button_input{
+                float:right;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            font-size: 150%;
+            margin-top: 8px;
+            color: #ff789e;
+            }
+            .a{
+                color:gray;
+                font-size: 14px;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            .ab {
+                margin: 60px 0px 20px 0px;
+                height: auto;
+                background-color:#f1f1f1;
+            }
+            a{
+                font-size: 16px;
+                color: #686868;
+
+            }
+            a:hover{
+                color: #ff789e;
+                text-decoration: none;
+            }
+            
+            .ew {
+                height: 300px;
+            }
+            hr{
+                border-color:black;
+            }
+            .list {
+                background-color: #ff789e;
+                color: white;
+                padding-top: 3px;
+                height: 5%;
+                width: 100%;
+                font-size: 16px;
+            }
+            .button_page {
+                background: #f1f1f1;
+                height: 330px; margin-top: 30px;
+            }
+            
+            .b {
+                margin-top: 20px;
+            
+            }
+            
+            p {
+                font-size: 130%;
+            }
+            #test1,#test2,#test3,#test4,ol{
+                padding-left: 10px;
+            }
+            span{
+                margin-left: 10px;
+            }
+            .ai{
+                border: 0px;
+    background: white;
+    color: pink;
+    font-size: 131%;
+    margin-left: 18px;
+            }
+        </style>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <section class="top_header_wrapper">
+        <div class="top_header_group">
+            <div class="top_header">
+                <img src="https://scontent.fhan2-2.fna.fbcdn.net/v/t1.15752-9/46503734_266417004020223_5459113096339521536_n.png?_nc_cat=110&_nc_oc=AWMFg8chwC-CBjR2XVRIQf6eNs6jjZkG09COj9wgHWRLGZ1j5X8_x4gm3XOUaQ&_nc_ht=scontent.fhan2-2.fna&oh=aec90d0c32745219596fccf490bb86fd&oe=5C721233"
+                    height="28px">&nbsp;
+                Hotline:
+                <span>0868</span>
+                <span>608</span>
+                <span>098</span>
+                <div class="right-area col-sm-6">
+                    &nbsp;Chào Mừng bạn đến với MOKI
+                    &nbsp;&nbsp;&nbsp;&nbsp;|
+
+
+                    <a onclick="login()" id="login" style="color:#fff;  text-decoration: none;" target="_blank">
+                        <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-9/46486321_2177397702508288_7120314478297612288_n.png?_nc_cat=102&_nc_oc=AWOiqlqibI2D5NfNK2WzWaKv9DRvnCZjBLqtJBfIjWwgsRLXbhQ4wY9hwM04UQ&_nc_ht=scontent.fhan2-1.fna&oh=2b2ef8a354a1d21f02406a3078af057e&oe=5C655EA1"
+                            width="25px" height="25px">
+                        Login
+                    </a>
+
+                    <script>
+
+                    </script>
+                    <!-- <input type="n" placeholder=""> -->
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a id="singup" onclick="singup()" style="color:#fff; text-decoration: none;" target="_blank">
+                        <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-9/46440665_317047542225752_2007267865027149824_n.png?_nc_cat=103&_nc_oc=AWN3t8UhDVnXPH8JFHw2UrwWfqsKmAq_dr8dpbOvwRMWWdj1PmVuFRvV9crTpQ&_nc_ht=scontent.fhan2-1.fna&oh=940c8d0d66bf6491345cac7fcf16c9fc&oe=5C6DDD3A"
+                            height="25px">&nbsp;&nbsp;&nbsp;
+                        Sing Up
+                    </a>
+                    <script>
+
+                    </script>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+                </div>
+            </div>
+    </section>
+    <div class="main-header">
+        <div class="container">
+            <div class="col-xs-1" style=" margin-left: -50px; ">
+                <a href="/" style="color:#fff; text-decoration: none;" target="_blank">
+                    <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/46482182_714947665540041_26052485638520832_n.jpg?_nc_cat=101&_nc_oc=AWMlpspRNctUDXqjleqivwA46NaMf7W4jaDNvD-p9MoTM2FBaTYmSgqC16Oz5g&_nc_ht=scontent.fsgn2-4.fna&oh=3caa3e83b5e1c98c6b0a23097cf4ae79&oe=5C6F4AA6"
+                        height="100%" width="500%">
+                </a>
+            </div>
+            <div class="col-xs-5"></div>
+            <div class="search col-xs-5 ">
+                <script>
+
+                </script>
+
+                <input type="text" id="search" class="search_input" name="search" placeholder="Tìm kiếm sản phẩm" value=""
+                    required>
+                <button onclick="search()" class=" ai glyphicon glyphicon-search"></button>
+
+                <div style=" margin-left: -100px; ">
+                    <table>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="/" style="text-decoration: none;">
+                                    <div class="a" id="tc" style="color:#ff789e">TRANG CHỦ</div>
+                                </a>
+                            </td>
+                            <td colspan="2">
+                                <a href="/flashsale" style="text-decoration: none;">
+                                    <div class="a" id="sale" onmouseover="change()" ; onmouseout="change1();">GÓC SALE</div>
+                                </a>
+                            </td>
+                            <td colspan="2">
+                                <a href="/intro" style="text-decoration: none;">
+                                    <div class="a" id="intro" onmouseover="change2()" ; onmouseout="change3();">GIỚI
+                                        THIỆU</div>
+                                </a>
+                            </td>
+                            <td colspan="2">
+                                <a href="/shopmoki" style="text-decoration: none;">
+                                    <div class="a" id="shop" onmouseover="change4()" ; onmouseout="change5();">SHOP
+                                        MOKI</div>
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <a href="https://www.facebook.com/thuanbka" target="_blank" style="text-decoration: none;">
+                                    <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/46401353_259433991401871_2351997054194024448_n.jpg?_nc_cat=105&_nc_oc=AWM6zPDbr8J36T9Ac2ltdELkfw4Mll9ochY-MEejoG_IWl5_4T0foOb71VJZXg&_nc_ht=scontent.fhan2-4.fna&oh=834397feb328a7ea7e8de02d8fd35b6e&oe=5C78BE02"
+                                        height="28px" class="a">
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <a href="
+                                        https://twitter.com/MOKI_VN" target="_blank"
+                                    style="text-decoration: none;">
+                                    <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/46459243_503715120142223_5861379913671507968_n.png?_nc_cat=105&_nc_oc=AWPLC0U39Q6r9l_mryfgq7E9E3Iu-UpAeeLhTux7nr-9vbBXc66jmjSNIhL_lw&_nc_ht=scontent.fhan2-4.fna&oh=07a8380d7c64fb40415e09a1189f3a10&oe=5C8108A1"
+                                        height="28px" class="a">
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <a href="https://youtu.be/fJX0s5tjBFw" target="_blank" style="text-decoration: none;">
+                                    <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/46520497_258081331731452_5346733168210739200_n.png?_nc_cat=101&_nc_oc=AWPIiCKy6EG9XUN40x5hLm-3I8TFRCwepm--kp9pdNh65EKiIzPwoGRT8T9CpQ&_nc_ht=scontent.fsgn2-4.fna&oh=5cddcabc417c6b6d1a0b07ab704026fc&oe=5C7D4DB8"
+                                        height="28px" class="a">
+                                </a>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <a href="https://www.instagram.com/moki.vn/" target="_blank" style="text-decoration: none;">
+                                    <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/46494508_254665261896742_5567074576862543872_n.jpg?_nc_cat=100&_nc_oc=AWM_zHrk_fK3WQo_vxo7XTSSGCwKf6IUYiQFDR5Q8sv7O902Yu0O8j6Dnb2n2w&_nc_ht=scontent.fhan2-4.fna&oh=b4dcdc0ab8d28c2d3234329aa9e0c555&oe=5C7883E7"
+                                        height="28px" class="a">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function singup() {
+            event.preventDefault();
+            if (localStorage.getItem("token") != null) {
+                localStorage.clear();
+                window.location.reload();
+            }
+            else {
+                alert("Bạn không thể tự tạo tk admin!")
+            }
+        }
+        function sendsingup() {
+            let phone = $('#phone').val();
+            let pass = $('#pass').val();
+            if (phone.length == 10 & pass.length > 5) {
+                axios.post('/api/singup', {
+                    phone: phone,
+                    pass: pass
+                }).then((res => {
+                    console.log(res.data);
+                    if (res.data.code != 1000) {
+
+                    }
+                }))
+            }
+            else {
+
+                if (phone.length != 10) {
+                    $('#phone').val("").focus();
+                    $('#pass').val("");
+                    alert("SDT không hợp lệ, vui lòng kiểm tra lại!");
+                }
+                if (pass.length < 6) {
+                    $('#pass').val("").focus();
+                    alert("Mật khẩu quá ngắn, vui lòng thử lại!");
+                }
+
+            }
+        }
+        function search() {
+            let name = $('#search').val();
+            console.log(name);
+            event.preventDefault();
+            axios.post('/api/search', {
+                name: name,
+                index: 0,
+                count: 20
+
+            }).then((res) => {
+                //
+                console.log(res.data.data);
+            });
+            return true;
+        }
+        function login() {
+            if (localStorage.getItem("token") == null) {
+                event.preventDefault();
+                $('#mainpage').addClass('hidden');
+                let html = "<div class='container logi'>";
+                html += "<h3>Dang nhap vao Moki</h3><br><div class='col-xs-1'></div>";
+                html += "<div class='col-xs-3'><b>Nhap so dien thoai</b></div>"
+                html += "<div class='col-xs-7'><input class='input' type='number' id='phone' width='300px' name='user' placeholder='  Vui lòng nhập số điện thoại  '><br><br><br><input class='input'type='password'placeholder='  Vui long nhập mật khẩu  ' name='pass' id='pass'><br>"
+                html += "<button onclick='sendlogin()' class='go'> Tiep tuc </button>"
+                html += "</div></div>";
+                document.getElementById('login1').innerHTML = html;
+
+
+            }
+            else {
+                window.location.replace('/user');
+            }
+
+        };
+      
+        function sendlogin() {
+
+            let phone = $('#phone').val();
+            let pass = $('#pass').val();
+            console.log(phone + pass);
+            if (phone.length == 10 && pass.length > 6) {
+                axios.post('/api/login', {
+                    phone: phone,
+                    pass: pass
+                }).then((res) => {
+                    console.log(res.data);
+                    if (res.data.code == 1000) {
+                        alert("Chào mừng bạn quay lại.");
+
+                        window.location.reload('/');
+                    }
+                    else {
+                        alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
+                        $('#phone').val("").focus();
+                        $('#pass').val("");
+                    }
+                })
+            }
+            else {
+                alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
+                $('#phone').val("").focus();
+                $('#pass').val("");
+            }
+
+        }
+
+        function s(id) {
+            let ida = ['#test1', '#test2', '#test3', '#test4'];
+            for (let i = 0; i < ida.length; i++) {
+                console.log(ida[i]);
+                $(ida[i]).addClass('hidden');
+
+            }
+            $(ida[id - 1]).removeClass('hidden');
+
+        }
+        document.getElementsByTagName("body")[0].onload = user;
+
+        function user() {
+            event.preventDefault();
+
+            if (localStorage.getItem("token") != null) {
+                document.getElementById('login').innerHTML = "Hello";
+                document.getElementById('singup').innerHTML = "Thoat";
+
+                axios.post('/api/adminhome', {
+                    index: 0,
+                    count: 20,
+
+                }, {
+                        headers: { "Authorization": "Bearer " + localStorage.getItem('token') }
+                    }).then((res) => {
+                        if (res.data.code != 1000) {
+                            alert("Có lỗi với tk của bạn, hãy đảm bảo bạn nhập đúng.Vui lòng thử lại");
+                            window.location.replace('/');
+                        }
+
+
+                        $('#mes').addClass("hidden");
+                        $('#us').addClass("az");
+                        $('#pr').removeClass("az");
+                        console.log(res.data.data);
+                        var html = "<table class='produc'><tr>" + "<td id='ax'>Id</td>" + "<td id='ax'>Họ tên</td>" + "<td id='ax'>Thơi gian tạo</td>" + "<td id='ax'>SDT</td>" + "<td id='ax'>Xác thực</td>" + "<td id='ax'>SL like</td>" + "<td id='ax'>SL dislike</td>" + "<td id='ax'>SL follow</td>" + "<td id='ax'>SL order</td>" + "<td id='ax'>URL user</td>" + "<td id='ax'>URL store</td>" + "<td id='ax'>Khóa TK</td>" + "<tr>";
+                        for (let i = 0; i < res.data.data.length; i++) {
+                            html += "<tr> <div>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i]._id + "  " + "</h4></td>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].name + "  ";
+                            html += "</h4></td><td id='ax'><h4>" + "  ";
+                            html += res.data.data[i].time + "  " + "</h4></td>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].phone + "  " + "</h4></td>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].auth + "  " + "</h4></td>"
+                            html += "<td id='ax'><h4>" + res.data.data[i].like.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].dislike.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].followed.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].order.length + "</h4></td>";
+                            html += "<td id='ax'><a href='/user/" + res.data.data[i]._id + "'>Url user</a></td>";
+                            html += "<td id='ax'><a href='/store/" + res.data.data[i]._id + "'>Url store</a></td>";
+                            html += "<td id='ax'><a href='/lock/" + res.data.data[i]._id + "'>Khóa TK</a></td>";
+
+                            html += "</div></tr>";
+
+                        }
+                        html += "</table>"
+                        // $('#product').innerHTML = html;
+                        document.getElementById('infor').innerHTML = html;
+
+
+                    })
+            }
+            else {
+                $('#mes').addClass("hidden");
+                $('#a').addClass("hidden");
+            }
+        }
+        function product() {
+            console.log();
+            event.preventDefault();
+            axios.post('/api/homeproduct', {
+                index: 0,
+                count: 20
+            }, {
+                    headers: { "Authorization": "Bearer " + localStorage.getItem('token') }
+                }).then((res) => {
+                    console.log(res.data);
+
+                    if (res.data.code == 1000) {
+                        $('#us').removeClass("az");
+                        $('#pr').addClass("az");
+                        html = "<table class='produc'><tr>" + "<td id='ax'>Id</td>" + "<td id='ax'>Tên sản phẩm</td>" + "<td id='ax'>Thơi gian tạo</td>" + "<td id='ax'>id chủ sp</td>" + "<td id='ax'>Giá sp</td>" + "<td id='ax'>Trạng thái</td>" + "<td id='ax'>Số lượng</td>" + "<td id='ax'>SL comment</td>" + "<td id='ax'>SL like</td>" + "<td id='ax'>SL đánh giá</td>" + "<td id='ax'>Sl report</td>" + "<td id='ax'>URL sản phẩm</td>" + "<td id='ax'>Xóa</td>" + "</tr>";
+                        for (let i = 0; i < res.data.data.length; i++) {
+                            html += "<tr> <div >";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].id + "  " + "</h4></td>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].name + "  ";
+                            html += "</h4></td><td id='ax'><h4>" + "  ";
+                            html += res.data.data[i].time_creat + "  " + "</h4></td>";
+                            html += "<td id='ax'><a href='/store/" + res.data.data[i].id_owner + "'>" + res.data.data[i].id_owner + "</a></td>";
+                            html += "<td id='ax'><h4>" + "  " + res.data.data[i].price + "  " + "</h4></td>"
+                            html += "<td id='ax'><h4>" + res.data.data[i].state + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].so_luong + "</h4></td>";
+
+                            html += "<td id='ax'><h4>" + res.data.data[i].comment.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].like.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].rate.length + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].report.length + "</h4></td>";
+                            html += "<td id='ax'><a href='/product/" + res.data.data[i].id + "'>Url product</a></td>";
+                            html += "<td id='ax'><a href='/deleteproduct/" + res.data.data[i]._id + "'>Xóa SP</a></td>";
+
+                            html += "</div></tr>";
+
+
+                        }
+
+
+                        html += "</table>";
+                        document.getElementById('infor').innerHTML = html;
+                    }
+                    else {
+                        alert(res.data.message);
+                    }
+                })
+        }
+        function order() {
+            alert("Chức năng chưa được hỗ trợ, vui lòng thử lại sau");
+        }
+    </script>
+    <style>
+        .input{
+            width:200px;
+            border: 1px solid rgba(138, 136, 137, 0.466);
+            border-radius: 5px;
+            height:35px;
+            
+        }
+        .go{
+            font-size: 150%;
+            color: #fff;
+           width: fit-content;
+           background: #e03c6b;
+           border: 1px solid rgb(121, 178, 243);
+            border-radius: 5px;
+            margin: 30px 0px 50px 0px;
+        }
+        .logi{
+            border: 1px solid pink;
+            border-radius: 10px;
+            width: 50%;
+            margin-bottom: 100px;
+        }
+        .produc {
+            margin: 0 auto;
+            background: #f795ae1e;
+        }
+.az{
+    background: rgb(255, 155, 222);
+}
+        .pro {
+
+            width: 250px;
+            height: 330px;
+
+            margin-bottom: 15px;
+            background: #fff;
+
+
+        }
+
+
+        .proimg {
+            margin-top: 15px;
+            width: 170px;
+            height: 190px;
+            overflow: hidden;
+        }
+
+        .as {
+            width: fit-content;
+           
+            margin: 0px 10px 0px 10px;
+            border: 1px solid rgb(54, 25, 219);
+            border-radius: 10px;
+            font-size: 150%;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+
+
+        #ax {
+            border: 1px solid;
+            border-top: 2px;
+            /* border-left: 2px;
+            border-right: 2px; */
+        }
+    </style>
+
+
+    <div style="height: 100px"></div>
+
+
+    <div id="login1">
+
+    </div>
+    <div class="main container">
+
+        <div class="col-xs-4">
+
+        </div>
+       <div id="a">
+
+            <button onclick="user()"  id="us"class="col-xs-1 as">
+                    User
+            </button>
+                <button onclick="product()"id="pr" class="col-xs-1 as">
+                    Product
+                </button>
+                <button onclick="order()" class="col-xs-1 as">
+                    Order
+                </button>
+        
+       </div>
+
+    </div>
+    <div style="height: 100px;;"></div>
+    <img id="mes" style="height: 400px; width: 400px;margin-left: 35%" src="http://storage.ning.com/topology/rest/1.0/file/get/558275?profile=original">
+    <div id="infor">
+
+    </div>
+    <div style="height: 100px;"></div>
+
+    <div class="container">
+        <img class="col-xs-6" src="http://moki.vn/files/bannerhome/1c6dd44a8992105ec6515bcf87acd157.jpg" alt="">
+        <img class="col-xs-6" src="http://moki.vn/files/bannerhome/2d0bf524927cc9dfb800d90668b7239a.jpg" alt="">
+    </div>
+
+    <div class="button_page">
+        <div class="row">
+
+            <div class="col-xs- col-sm- col-md- col-lg-">
+                &nbsp;
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-1">
+                    <a href="/question" style="text-decoration: none;">
+                        <div id="qa" onmouseover="change6()" ; onmouseout="change7();" style="font-size:20px;color:grey">Hỏi
+                            và đáp</div>
+                    </a>
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-2">
+                    <a href="/dieukhoansudung" style="text-decoration: none;">
+                        <div id="dk" onmouseover="change8()" ; onmouseout="change9();" style="font-size:20px;color:grey">Điều
+                            khoản sử dụng</div>
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a href="/baomatthongtinkhachhang" style="text-decoration: none;">
+                        <div id="baomat" onmouseover="change10()" ; onmouseout="change11();" style="font-size:20px;color:grey">Bảo
+                            mật thông tin khách hàng</div>
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="/quychehoatdong" style="text-decoration: none;">
+                        <div id="quyche" onmouseover="change12()" ; onmouseout="change13();" style="font-size:20px;color:grey">Quy
+                            chế hoạt động</div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-4">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <a href="/" style="color:#fff; text-decoration: none;" target="_blank">
+                <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/46440636_337710300364990_2557987190403497984_n.png?_nc_cat=100&_nc_oc=AWM6iXag7nlvM1nSMS4cvfxUdNulGPJs8CpYIifXKeLsSwDdgp31Yrtp7OXRLg&_nc_ht=scontent.fhan2-4.fna&oh=b162263da10a116a3a8197d6248821a5&oe=5C7CD8ED"
+                    height="25%" width="50%">
+            </a>
+            <hr style="border-color:black">
+            <h5>- CÔNG TY CỔ PHẦN MOKI</h5>
+            <h5>- Giấy CNĐKDN: 0107370701 - Ngày cấp: 24/03/2016.</h5>
+            <h5>- Cơ quan cấp: Phòng Đăng ký kinh doanh Sở Kế hoạch và Đầu tư Thành phố Hà Nội.</h5>
+            <h5>- Web mô phỏng lại web chính <a>www.moki.vn</a> thuộc bài tập lớn môn thiết kế và lập trình Web</h5>
+            <hr style="border-color:black">
+        </div>
+        <div class="col-xs-2 b">
+            <h4>Các dịch vụ giao hàng</h4>
+            <img src="http://thanhnien.vnpost.vn/static/img/vnpost.png" alt="" height="60px"><br><br><br>
+            <img src="https://giaohangtietkiem.vn/wp-content/uploads/2015/10/logo.png" height="60px" alt="">
+        </div>
+        <div class="col-xs-2 b">
+            <h4>Phương thức thanh toán</h4>
+            <img src="https://i2.wp.com/scentfie.com/wp-content/uploads/2017/11/Cash-On-Delivery-Logo.jpg?resize=366%2C144"
+                alt="" height="60px"><br><br>" <br><br>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-3 b">
+            <h4> Liên Hệ</h4>
+            <span style="font-size:14px;color:black; font-weight: bold">TRỤ SỞ CHÍNH:</span>
+            <br>
+            <span>6/50, đường Lĩnh Nam, Hoàng Mai, Hà Nội</span>
+            <br>
+            <span style="font-size:14px;color:black; font-weight: bold">Địa chỉ giao dịch:</span>
+            <br>
+            <span>Tầng 10, Tòa nhà ZenTower, 12 Khuất Duy Tiến, Thanh Xuân Trung, Thanh Xuân, Hà Nội</span>
+            <br>
+            <span>Hotline: 0868.608.098</span>
+            <br>
+            <span style="font-size:14px;color:black; font-weight: bold">Thời gian làm việc:</span>
+            <br>
+            <span>Thứ 2 - Thứ 6:8h00 - 12h00, 13h00 - 17h00</span>
+            <br>
+            <span>Thứ 7:8h00 - 12h00</span>
+            <br>
+            <span style="font-size:14px;color:black; font-weight: bold"> Web truy cập:</span>
+            <a href="">Bkstore.herokuapp.com</a>
+        </div>
+
+    </div>
+</body>
+
+</html>
