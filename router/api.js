@@ -1772,7 +1772,7 @@ router.route('/home').post((req, res) => {
 });
 router.route('/adminhome').post((req, res) => {
     // console.log(req.userData);
-    // console.log(req.body);
+     console.log(req.body);
 
     if (!req.userData) {
         res.json({
@@ -1969,5 +1969,37 @@ router.route('/free_product').post((req, res) => {
             break;
         }
     })
+})
+router.route('/reqauth').post((req,res)=>{
+    console.log(req.body);
+    if(!req.userData){
+        res.json({
+            code:9994,
+            message:"token is not validated"
+        })
+    }
+    else{
+        User.findOne({
+            admin:"true",
+            phone:req.userData.phone
+        },(err,ok)=>{
+            if(err) throw err;
+            console.log(ok)
+            if(ok){
+
+                User.updateOne({
+                    phone:req.body.id
+                },{
+                    auth:0
+                },(err,oku)=>{
+                    if(err) throw err;
+                    res.json({
+                        code:1000,
+                        message:"ok"
+                    })
+                })
+            }
+        })
+    }
 })
 module.exports = router;

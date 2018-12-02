@@ -358,7 +358,7 @@
             }
 
         };
-      
+
         function sendlogin() {
 
             let phone = $('#phone').val();
@@ -372,7 +372,7 @@
                     console.log(res.data);
                     if (res.data.code == 1000) {
                         alert("Chào mừng bạn quay lại.");
-
+                        window.localStorage.setItem('token', res.data.data.token);
                         window.location.reload('/');
                     }
                     else {
@@ -426,7 +426,7 @@
                         $('#us').addClass("az");
                         $('#pr').removeClass("az");
                         console.log(res.data.data);
-                        var html = "<table class='produc'><tr>" + "<td id='ax'>Id</td>" + "<td id='ax'>Họ tên</td>" + "<td id='ax'>Thơi gian tạo</td>" + "<td id='ax'>SDT</td>" + "<td id='ax'>Xác thực</td>" + "<td id='ax'>SL like</td>" + "<td id='ax'>SL dislike</td>" + "<td id='ax'>SL follow</td>" + "<td id='ax'>SL order</td>" + "<td id='ax'>URL user</td>" + "<td id='ax'>URL store</td>" + "<td id='ax'>Khóa TK</td>" + "<tr>";
+                        var html = "<table class='produc'><tr>" + "<td id='ax'>Id</td>" + "<td id='ax'>Họ tên</td>" + "<td id='ax'>Thơi gian tạo</td>" + "<td id='ax'>SDT</td>" + "<td id='ax'>Xác thực</td>" + "<td id='ax'>SL like</td>" + "<td id='ax'>SL dislike</td>" + "<td id='ax'>SL follow</td>" + "<td id='ax'>SL order</td>" + "<td id='ax'>Yêu cầu xác thực</td>" + "<td id='ax'>URL store</td>" + "<td id='ax'>Khóa TK</td>" + "<tr>";
                         for (let i = 0; i < res.data.data.length; i++) {
                             html += "<tr> <div>";
                             html += "<td id='ax'><h4>" + "  " + res.data.data[i]._id + "  " + "</h4></td>";
@@ -439,9 +439,9 @@
                             html += "<td id='ax'><h4>" + res.data.data[i].dislike.length + "</h4></td>";
                             html += "<td id='ax'><h4>" + res.data.data[i].followed.length + "</h4></td>";
                             html += "<td id='ax'><h4>" + res.data.data[i].order.length + "</h4></td>";
-                            html += "<td id='ax'><a href='/user/" + res.data.data[i]._id + "'>Url user</a></td>";
+                            html += "<td id='ax'><button onclick='reqauth(" + res.data.data[i].phone + ")'>Url user</button></td>";
                             html += "<td id='ax'><a href='/store/" + res.data.data[i]._id + "'>Url store</a></td>";
-                            html += "<td id='ax'><a href='/lock/" + res.data.data[i]._id + "'>Khóa TK</a></td>";
+                            html += "<td id='ax'><button onclick='khoatk(" + res.data.data[i]._id + ")'>Khóa TK</button></td>";
 
                             html += "</div></tr>";
 
@@ -458,6 +458,23 @@
                 $('#a').addClass("hidden");
             }
         }
+
+        function reqauth(id) {
+            
+            id="0"+id;console.log(id);
+            axios.post('/api/reqauth', {
+                id: id
+            }, {
+                    headers: { "Authorization": "Bearer " + localStorage.getItem('token') }
+
+                }).then((res) => {
+                    if (res.data.code == 1000) {
+                        alert("Yêu cầu thành công");
+                        user();
+                    }
+                })
+        }
+
         function product() {
             console.log();
             event.preventDefault();
@@ -488,8 +505,8 @@
                             html += "<td id='ax'><h4>" + res.data.data[i].like.length + "</h4></td>";
                             html += "<td id='ax'><h4>" + res.data.data[i].rate.length + "</h4></td>";
                             html += "<td id='ax'><h4>" + res.data.data[i].report.length + "</h4></td>";
-                            html += "<td id='ax'><a href='/product/" + res.data.data[i].id + "'>Url product</a></td>";
-                            html += "<td id='ax'><a href='/deleteproduct/" + res.data.data[i]._id + "'>Xóa SP</a></td>";
+                            html += "<td id='ax'><a href='/getproduct/" + res.data.data[i].id + "'>Url product</a></td>";
+                            html += "<td id='ax'><button onclick='xoa('" + res.data.data[i]._id + ")'>Xóa SP</button></td>";
 
                             html += "</div></tr>";
 
@@ -510,35 +527,40 @@
         }
     </script>
     <style>
-        .input{
-            width:200px;
+        .input {
+            width: 200px;
             border: 1px solid rgba(138, 136, 137, 0.466);
             border-radius: 5px;
-            height:35px;
-            
+            height: 35px;
+
         }
-        .go{
+
+        .go {
             font-size: 150%;
             color: #fff;
-           width: fit-content;
-           background: #e03c6b;
-           border: 1px solid rgb(121, 178, 243);
+            width: fit-content;
+            background: #e03c6b;
+            border: 1px solid rgb(121, 178, 243);
             border-radius: 5px;
             margin: 30px 0px 50px 0px;
         }
-        .logi{
+
+        .logi {
             border: 1px solid pink;
             border-radius: 10px;
             width: 50%;
             margin-bottom: 100px;
         }
+
         .produc {
             margin: 0 auto;
             background: #f795ae1e;
         }
-.az{
-    background: rgb(255, 155, 222);
-}
+
+        .az {
+            background: rgb(255, 155, 222);
+        }
+
         .pro {
 
             width: 250px;
@@ -560,7 +582,7 @@
 
         .as {
             width: fit-content;
-           
+
             margin: 0px 10px 0px 10px;
             border: 1px solid rgb(54, 25, 219);
             border-radius: 10px;
@@ -593,19 +615,19 @@
         <div class="col-xs-4">
 
         </div>
-       <div id="a">
+        <div id="a">
 
-            <button onclick="user()"  id="us"class="col-xs-1 as">
-                    User
+            <button onclick="user()" id="us" class="col-xs-1 as">
+                User
             </button>
-                <button onclick="product()"id="pr" class="col-xs-1 as">
-                    Product
-                </button>
-                <button onclick="order()" class="col-xs-1 as">
-                    Order
-                </button>
-        
-       </div>
+            <button onclick="product()" id="pr" class="col-xs-1 as">
+                Product
+            </button>
+            <button onclick="order()" class="col-xs-1 as">
+                Order
+            </button>
+
+        </div>
 
     </div>
     <div style="height: 100px;;"></div>
