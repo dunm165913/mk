@@ -548,7 +548,7 @@
                 let phone = $('#phone').val();
                 let pass = $('#pass').val();
                 console.log(phone + pass);
-                if (phone.length == 10 && pass.length > 6) {
+                if (phone.length == 10 && pass.length > 5) {
                     axios.post('/api/login', {
                         phone: phone,
                         pass: pass

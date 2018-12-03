@@ -364,7 +364,7 @@
             let phone = $('#phone').val();
             let pass = $('#pass').val();
             console.log(phone + pass);
-            if (phone.length == 10 && pass.length > 6) {
+            if (phone.length == 10 && pass.length > 5) {
                 axios.post('/api/login', {
                     phone: phone,
                     pass: pass
@@ -499,7 +499,7 @@
                             html += "<td id='ax'><a href='/store/" + res.data.data[i].id_owner + "'>" + res.data.data[i].id_owner + "</a></td>";
                             html += "<td id='ax'><h4>" + "  " + res.data.data[i].price + "  " + "</h4></td>"
                             html += "<td id='ax'><h4>" + res.data.data[i].state + "</h4></td>";
-                            html += "<td id='ax'><h4>" + res.data.data[i].so_luong + "</h4></td>";
+                            html += "<td id='ax'><h4>" + res.data.data[i].numberproduct + "</h4></td>";
 
                             html += "<td id='ax'><h4>" + res.data.data[i].comment.length + "</h4></td>";
                             html += "<td id='ax'><h4>" + res.data.data[i].like.length + "</h4></td>";
