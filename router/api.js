@@ -689,7 +689,7 @@ router.route('/report_products').post((req, res) => {
             if (ok) {
                 Product.findOne({
                     id: req.body.product_id
-                }, (err, oi) => {
+                }, (err, ok) => {
                     if (err) throw err;
                     if (ok) {
                         Product.updateOne({
