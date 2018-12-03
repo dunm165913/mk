@@ -30,11 +30,11 @@ var productSchema = mongoose.Schema({
     shop_name:{
         type:String
     },
-    numberproduct:{
-        type:Number
-    },
     state: {
         type: String
+    },
+    numberproduct: {
+        type: Number
     },
     like: {
         type: Array

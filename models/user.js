@@ -56,7 +56,6 @@ var userSchema = mongoose.Schema({
     followed:{
         type:Array
     },
-   
     numfollowed:{
         type:Number
     }

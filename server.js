@@ -9,8 +9,7 @@ const app = Express();
 app.set('view engine','ejs');
 
 
-let cors=require('cors');
-// app.use(cors());
+
 
 app.use(auth);
 
@@ -22,12 +21,11 @@ app.get("/",(req,res)=>{
 });
 app.get('/getproduct/:id([0-9]{1,100})',(req,res)=>{
     let a=req.params;
+    //console.log(a);
     res.render('getproduct',{
         id:a
     })
-   
-    
-})
+});
 app.get('/admin',(req,res)=>{
     res.sendFile(__dirname+"/views/admin.html");
 })
@@ -39,6 +37,7 @@ app.get('/store/:id([a-zA-Z0-9]{1,1000})',(req,res)=>{
         id:req.params
     })
 })
+
 
 
 const mongoose=require('mongoose');
@@ -53,5 +52,5 @@ app.use('/api',api);
 
 
 
-app.listen(process.env.PORT || 8000);
+app.listen(process.env.PORT || 9000);
 

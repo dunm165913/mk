@@ -71,15 +71,28 @@
                 font-weight: 600;
             }
             .ab {
-                margin: 60px 0px 20px 0px;
+                margin: 60px 0px 10px 0px;
                 height: auto;
                 background-color:#f1f1f1;
+            }
+            .ab1 {
+                margin: 60px 0px 10px 0px;
+                height: auto;
+                background-color:#ffffff;
             }
             a{
                 font-size: 16px;
                 color: #686868;
             }
             a:hover{
+                color: #ff789e;
+                text-decoration: none;
+            }
+            k{
+                font-size: 16px;
+                color: LightSlateGray;
+            }
+            k:hover{
                 color: #ff789e;
                 text-decoration: none;
             }
@@ -111,30 +124,967 @@
             p {
                 font-size: 130%;
             }
-            #test1,#test2,#test3,#test4,ol{
-                padding-left: 10px;
-            }
-            span{
-                margin-left: 10px;
-            }
-            .as{
-                width:40%;
-                margin-top: 40px
-            }
-            .ai{
-                border: 0px;
-    background: white;
-    color: pink;
-    font-size: 131%;
-    margin-left: 18px;
-            }
-        </style>
-    <script>
+        
+            .pro {
 
+                width: 250px;
+                height: 330px;
+                margin-right: 10px;
+                margin-bottom: 15px;
+
+
+            }
+
+
+            .proimg {
+                margin-top: 15px;
+                width: 200px;
+                height: 230px
+            }
+            .form-control {
+            display: block;
+            width: 40%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .bean{
+            border:1px dashed #ff789e;
+        }
+        .bean:hover{
+            transform: scale(0.97);
+            border: 1px dashed #ff789e;
+        }
+        .gachchanba{
+            border-bottom: 2px solid #ff789e;
+            width: 100px;
+            text-align: left;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            
+        }
+
+        .dongbean {
+            
+            height:35px;
+        }
+        .dongbean a{
+            color: #1d1b1b;
+        }
+        .dongbean a:hover{
+            color: #ff789e;
+            text-decoration: none;
+        }
+        .anhbean{
+            width: 182px;
+            margin-left: -10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .gachphancach{
+            border-bottom: 1px dashed #3a2e2e;
+        }
+        .grcontent{
+            height:992px;
+        }
+        .gcontent{
+            height:600px;
+        }
+        .chu h4{
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Times New Roman';
+            font-size: 20pt;
+            color:#5c290c;
+            font-weight: 600;
+        }
+        b{
+          color:#ff789e;
+        }
+        p, h1, h2, h3, h4, h5, h6 {
+            font-family: 'arial', sans-serif;
+            line-height: 1.618em;
+        }
+        .button_input1 {
+        float: right;
+        background-color: #ffffff;
+        border: 0px solid #ffffff;
+        font-size: 300%;
+        margin-top: 8px;
+        color: gold;
+
+    }
+    #report2{
+            border: 2px solid#ff789e ;
+            border-radius: 20px;
+            margin-top: 15px;
+            width: 100%;
+    }
+    #subject{
+        height: 30px;
+        margin-top:5px;
+        margin-left:1px;
+        border: 1px solid rgb(255, 192, 203);
+        border-radius: 10px;
+    }
+    label{
+            width: 100px;
+            font-size: 130%;
+            font-weight: 100;
+            margin-bottom: 20px;
+            margin-left: 5px;
+        }
+        #details{
+        margin-top: 5px;
+        margin-left:1px;
+        border: 1px solid rgb(255, 192, 203);
+        border-radius: 10px;
+        height: auto;
+        width:200px;
+        }
+     
+    </style>
+    <script>
+        let user = {};
+        var dlike;
+        var dilike;
+        var like = 0;
+        var dislike = 0, dbc = 0;;
+        function like1() {
+            like++;
+            if (like % 2 == 1) {
+                if (localStorage.getItem('token') != null) {
+
+                    $('#dislike').addClass('hidden');
+                    axios.post('/api/like_products', {
+                        id: `<%- id.id %>`,
+                    }, {
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem('token')
+                            }
+                        }).then((res) => {
+                            if (res.data.code != 1000) {
+                                //console.log(res);
+                                alert(res.data.message);
+                            }
+                            else {
+                                alert("Bạn đã like thành công");
+                                document.getElementById("like").style.color = "#ff789e";
+                                dlike++;
+                                console.log(dlike);
+                                var html = "" + dlike + "";
+                                document.getElementById('l').innerHTML = html;
+                            }
+                        })
+                }
+                else {
+                    alert("Bạn phải đăng nhập để like sản phẩm");
+                    login();
+                }
+            }
+
+            else {
+                if (localStorage.getItem('token') != null) {
+                    document.getElementById("like").style.color = "gold";
+
+                    $('#dislike').removeClass('hidden');
+                    axios.post('/api/unlike', {
+                        id: `<%- id.id %>`,
+                    }, {
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem('token')
+                            }
+                        }).then((res) => {
+                            if (res.data.code != 1000) {
+                                //console.log(res);
+                                alert(res.data.message);
+                            }
+                            else {
+                                alert("Bạn đã unlike thành công");
+                                document.getElementById("like").style.color = "gold";
+                                dlike--;
+                                console.log(dlike);
+                                var html = "" + dlike + "";
+                                document.getElementById('l').innerHTML = html;
+                            }
+                        })
+                }
+                else {
+                    alert("Bạn phải đăng nhập để unlike sản phẩm")
+                    login();
+                }
+            }
+        }
+
+        function dislike1() {
+            dislike++;
+            if (dislike % 2 == 1) {
+                if (localStorage.getItem('token') != null) {
+
+                    $('#like').addClass('hidden');
+                    axios.post('/api/dislike_products', {
+                        id: `<%- id.id %>`,
+                    }, {
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem('token')
+                            }
+                        }).then((res) => {
+                            if (res.data.code != 1000) {
+                                //console.log(res);
+                                alert(res.data.message);
+                            }
+                            else {
+
+                                alert("Bạn đã dislike thành công");
+                                document.getElementById("dislike").style.color = "#ff789e";
+                                dilike++;
+                                //console.log(dlike);
+                                var html = "" + dilike + "";
+                                document.getElementById('dl').innerHTML = html;
+                            }
+                        })
+                }
+                else {
+                    alert("Bạn phải đăng nhập để dislike sản phẩm");
+                    login();
+                }
+            }
+
+            else {
+                if (localStorage.getItem('token') != null) {
+
+
+                    $('#like').removeClass('hidden');
+                    axios.post('/api/undislike', {
+                        id: `<%- id.id %>`,
+                    }, {
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem('token')
+                            }
+                        }).then((res) => {
+                            if (res.data.code != 1000) {
+                                //console.log(res);
+                                alert(res.data.message);
+                            }
+                            else {
+
+                                alert("Bạn đã undislike thành công");
+                                document.getElementById("dislike").style.color = "gold";
+                                dilike--;
+                                //console.log(dlike);
+                                var html = "" + dilike + "";
+                                document.getElementById('dl').innerHTML = html;
+                            }
+                        })
+                }
+                else {
+                    alert("Bạn phải đăng nhập để undislike sản phẩm")
+                    login();
+                }
+            }
+        }
+        function baocao() {
+            dbc++;
+            if (dbc % 2 == 1) {
+                if (localStorage.getItem('token') != null) {
+                    $('#report').removeClass('hidden');
+                    var html = "<div class='container ' id='report2'>";
+                    html += " <label > CHủ đề:</label>"
+                    html += "<input type='text' name='subject'required placeholder='Viết chủ đề...' id='subject'><br>";
+                    html += "<label>Đánh giá:</label> "
+                    html += "  <textarea name='details' id='details' required placeholder='Viết đánh giá...'></textarea><br>  "
+                    html += "<button type='submit' onclick='report1()'; style='background-color: #ff789e;color: gold;  margin-left:120px; margin-bottom:10px; '>Gửi báo cáo </button>"
+                    html += "</div>"
+                    document.getElementById('report').innerHTML = html;
+                }
+                else {
+                    alert("Bạn phải đăng nhập để thực hiện chức năng này");
+                    login();
+                }
+            }
+            else $('#report').addClass('hidden');
+        }
+        function report1() {
+            let a = $('#subject').val();
+            let b = $('#details').val();
+            axios.post('/api/report_products', {
+                product_id: `<%- id.id %>`,
+                subject: a,
+                details: b
+            }, {
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem('token')
+                    }
+                }).then((res) => {
+                    if (res.data.code == 1000) {
+                        console.log(res);
+                        alert("Thành công");
+                        var html = "" + res.data.data + "";
+                        document.getElementById('rp').innerHTML = html;
+                        $('#report').addClass('hidden');
+
+                    }
+                })
+        }
+        function singup() {
+            if (localStorage.getItem("token") != null) {
+                localStorage.clear();
+                window.location.reload();
+            }
+            else {
+                event.preventDefault();
+                $('#mainpage').addClass('hidden');
+                let html = " <div  style='background-color:#f1f1f1; height:300px' >";
+                html += "<div class='row'><br><div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' ><div class='col-xs-3'></div><div class='col-xs-6' style='background-color:white;''>";
+                html += "<div  id='login1'  ><h4 style='text-align: center;font-weight: bold;'>Đăng ký tài khoản MOKI</h4><div class='col-xs-1'></div><div>"
+                html += "<div class='col-xs-3'style='font-size:16px;font-weight: bold;' >Nhập số điện thoại:</div><input class='form-control' id='phone' type='number' placeholder='Vui lòng nhập số điện thoại' name='phone' required></div><br>"
+                html += "<div class='col-xs-1'></div><div><div class='col-xs-3'style='font-size:16px;font-weight: bold;' >Nhập mật khẩu:</div><input type='password' id='pass'  class='form-control' size='30px' name='pass' placeholder='Vui lòng nhập mật khẩu' required><br></div>";
+                html += " <div class='col-xs-5'></div><button  onclick='sendsingup();' style='height: 25px; background: #f16e8e;font-weight: bold;'>Đăng Ký ! </button><br>";
+                html += "<div class='col-xs-1'></div></div></div></div> </div><br></div><hr>";
+                document.getElementById('login1').innerHTML = html;
+            }
+        }
+        function sendsingup() {
+            let phone = $('#phone').val();
+            let pass = $('#pass').val();
+            if (phone.length == 10 & pass.length > 5) {
+                axios.post('/api/singup', {
+                    phone: phone,
+                    pass: pass
+                }).then((res) => {
+                    console.log(res.data);
+                    if (res.data.code != 1000) {
+                        alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
+                        $('#phone').val("").focus();
+                        $('#pass').val("");
+                    }
+                    else{
+                        alert("Bạn đã đăng ký thành công. Mời đăng nhập để sử dụng dịch vụ.");
+                        login();
+                    }
+                })
+            }
+            else {
+
+                if (phone.length != 10) {
+                    $('#phone').val("").focus();
+                    $('#pass').val("");
+                    alert("SDT không hợp lệ, vui lòng kiểm tra lại!");
+                }
+                if (pass.length < 6) {
+                    $('#pass').val("").focus();
+                    alert("Mật khẩu quá ngắn, vui lòng thử lại!");
+                }
+
+            }
+        }
+        function search() {
+            let name = $('#search').val();
+            console.log(name);
+            event.preventDefault();
+            axios.post('/api/search', {
+                name: name,
+                index: 0,
+                count: 20
+
+            }).then((res) => {
+                //
+                console.log(res.data.data);
+                var html = "";
+                if (res.data.data.length == 0) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>KhÔNG CÓ THÔNG TIN SẢN PHẨM CẦN TÌM</h1><hr>"
+                }
+                else {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>TẤT CẢ</h1><hr>"
+                    html += "<br><br>"
+                    for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/" + res.data.data[i].id + "'style='text-decoration: none;'> ";
+                    html += "  <div class=' anhbean col-md-4'>";
+                    html += "<img src='" + res.data.data[i].imgavata + "'style='text-align: center;' width= '100%' height='100px'; />";
+                    html += "<div class='center gachphancach'><div style='text-align: center;height:30px;'>" + res.data.data[i].name + "</div>"
+                    html += "<div class='chu '><h4>" + res.data.data[i].price + "đ</h4>";
+                    html += " </div></div> </div></a>"
+
+                    }
+                }
+                document.getElementById('result').innerHTML = html;
+            });
+        }
+
+        function b(str) {
+            //console.log(str);
+            var html = "";
+            html += "&nbsp;&nbsp;<img src='" + str + "'width='300px'height='300px'>";
+            document.getElementById('re').innerHTML = html;
+
+        }
+        function mota1(str) {
+            var html = "";
+            html += "<h4>" + str + "</h4>"
+            document.getElementById('mota').innerHTML = html;
+        }
+        function comment(str) {
+            axios.post('/api/get_comment_products', {
+                id: str,
+                index: 0,
+                count: 5
+            }).then((res) => {
+                var html = "<div id='comment'>";
+                if (res.data.data.length == 0) {
+                    html += "<h3 stye='text-align=center;'>Chưa có bình luận về sản phẩm</h3>";
+                }
+                else {
+                    html += "<table>";
+                    for (let i = 0; i < res.data.data.length; i++) {
+                        if (res.data.data[i].poster[2] == "") {
+                            html += "<tr><td rowspan='3'><img style='margin-left: 5px' src='https://moki.vn/img/default-avatar.png' width='55px'height='55px'></td></tr>";
+                        }
+                        else { html += "<tr><td rowspan='3'><img style='margin-left: 5px' src='" + res.data.data[i].poster[2] + "' width='55px'height='55px'></td></tr>" }
+                        html += "<tr> <td><i style='margin-left: 5px'>Bởi</i><m style='color:#ff789e;font-size:14px;margin-left: 5px'>" + res.data.data[i].poster[0] + "</m></td></tr><tr><td><p style='margin-left: 10px'>" + res.data.data[i].comment + " </p></td></tr>";
+                    }
+                    html += "</table>";
+                }
+                html += "</div>";
+                html += "<br><h4>Viết bình luận</h4>";
+                if (user.avata) {
+                    html += "<table><tr><td><img style='margin-left: 5px' src='" + user.avata + "' width='55px'height='55px'></td>"
+                }
+                else { html += "<table><tr><td><img style='margin-left: 5px' src='https://moki.vn/img/default-avatar.png' width='55px'height='55px'></td>" }
+                html += "<td><textarea style='margin-left: 10px' cols='90' rows='4'id='binhluan' name='binhluan' placeholder='Ý kiến của bạn...'></textarea></td></tr></table>";
+                html += "<br><button onclick='binhluan();' type='submit' style='background-color:#ff789e; height:25px;width:50px;'>Gửi</button>"
+                document.getElementById('mota').innerHTML = html;
+            });
+        }
+        function binhluan() {
+            let a = $('#binhluan').val();
+            //kiểm tra ký tự có hợp lệ 300 ký tự
+            //Nếu thỏa mãn kiểm tra
+            if (localStorage.getItem('token') != null) {
+                axios.post('/api/set_comment_products', {
+                    comment: a,
+                    parent_id: `<%- id.id %>`,
+                    count: 5
+                }, {
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem('token')
+                        }
+                    }).then((res) => {
+                        if (res.data.code == 1000) {
+                            console.log(res);
+                            alert("Thành công");
+                            var html = "";
+                            html += "<table>"
+                            for (let i = 0; i < res.data.data.length; i++) {
+                                if (res.data.data[i].poster[2] == "") {
+                                    html += "<tr><td rowspan='3'><img style='margin-left: 5px' src='https://moki.vn/img/default-avatar.png' width='55px'height='55px'></td></tr>";
+                                }
+                                else { html += "<tr><td rowspan='3'><img style='margin-left: 5px' src='" + res.data.data[i].poster[2] + "' width='55px'height='55px'></td></tr>" }
+                                html += "<tr> <td><i style='margin-left: 5px'>Bởi</i><m style='color:#ff789e;font-size:14px;margin-left: 5px'>" + res.data.data[i].poster[0] + "</m></td></tr><tr><td><p style='margin-left: 10px'>" + res.data.data[i].comment + " </p></td></tr>";
+                                html += "</table>"
+                            }
+                            document.getElementById('comment').innerHTML = html;
+                            $('#binhluan').val("");
+
+                        }
+                    })
+            }
+            else {
+                alert("Bạn phải đăng nhập để thực hiện chức năng này");
+                login();
+            }
+        }
+        function login() {
+            if (localStorage.getItem("token") == null) {
+                event.preventDefault();
+                $('#mainpage').addClass('hidden');
+                let html = " <div  style='background-color:#f1f1f1; height:300px' >";
+                html += "<div class='row'><br><div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' ><div class='col-xs-3'></div><div class='col-xs-6' style='background-color:white; height:250px''>";
+                html += "<div  id='login1'  ><h4 style='text-align: center;font-weight: bold;'>Đăng nhập tài khoản MOKI</h4><div class='col-xs-1'></div><div>"
+                html += "<div class='col-xs-3'style='font-size:16px;font-weight: bold;' >Nhập số điện thoại:</div><input class='form-control' id='phone' type='number' placeholder='Vui lòng nhập số điện thoại' name='phone' required></div><br>"
+                html += "<div class='col-xs-1'></div><div><div class='col-xs-3'style='font-size:16px;font-weight: bold;' >Nhập mật khẩu:</div><input type='password' id='pass'  class='form-control' size='30px' name='pass' placeholder='Vui lòng nhập mật khẩu' required><br></div>";
+                html += "<div class='col-xs-7'></div><k onclick='forgetpass()' > Quên mật khẩu.</k><br><br>"
+                html += " <div class='col-xs-5'></div><button  onclick='sendlogin()' style='height: 25px; background: #f16e8e;font-weight: bold;'>Đăng nhập ! </button><br>";
+                html += "<div class='col-xs-1'></div></div></div></div> </div><br></div><hr>";
+                document.getElementById('login1').innerHTML = html;
+
+
+            }
+            else {
+                window.location.replace('/user');
+            }
+
+        }
+        function forgetpass() {
+            event.preventDefault();
+            $('#mainpage').addClass('hidden');
+            let html = " <div  style='background-color:#f1f1f1; height:300px' >";
+            html += "<div class='row'><br><div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' ><div class='col-xs-3'></div><div class='col-xs-6' style='background-color:white; height:250px''>"
+            html += "<div  id='login1'  ><h4 style='text-align: center;font-weight: bold;'>Quên tài khoản MOKI</h4><div class='col-xs-1'></div><div><hr>"
+            html += "<div class='col-xs-5'style='font-size:16px;font-weight: bold;' > Nhập số điện thoại để tiếp tục:</div><input class='form-control' id='phonecreate' type='number' placeholder='Vui lòng nhập số điện thoại' name='phone' required></div><br>"
+            html += " <br><div class='col-xs-5'></div><button  onclick='sendcreatecode()' style='height: 25px; background: #f16e8e;font-weight: bold;'>Tiếp tục! </button><br>";
+            html += "<div class='col-xs-1'></div></div></div></div> </div><br></div><hr>";
+            document.getElementById('login1').innerHTML = html
+        }
+        let phone;
+        function sendcreatecode() {
+            $('#mainpage').addClass('hidden');
+            let k = $('#phonecreate').val();
+            if (k.length == 10) {
+                phone = k;
+                axios.post('/api/create_code_reset_password', {
+                    phone: k
+                }).then((res) => {
+                    if (res.data.code == 1000) {
+                        let html = " <div  style='background-color:#f1f1f1; height:300px' >";
+                        html += "<div class='row'><br><div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' ><div class='col-xs-3'></div><div class='col-xs-6' style='background-color:white; height:250px''>"
+                        html += "<div  id='login1'  ><h4 style='text-align: center;font-weight: bold;'>Quên tài khoản MOKI</h4><div class='col-xs-1'></div><div><hr>"
+                        html += "<div class='col-xs-5'style='font-size:16px;font-weight: bold;' > Nhập mã xác nhận để tiếp tục:</div><input class='form-control' id='codecreate' type='number' placeholder='Vui lòng nhập mã xác nhận' name='user' required></div><br>"
+                        html += " <br><div class='col-xs-5'></div><button  onclick='sendcode()' style='height: 25px; background: #f16e8e;font-weight: bold;'>Tiếp tục! </button><br>";
+                        html += "<div class='col-xs-1'></div></div></div></div> </div><br></div><hr>";
+                        document.getElementById('login1').innerHTML = html
+                    }
+                    else {
+                        alert(res.data.message + " hoặc SDT chưa được đăng ký, vui lòng kiểm tra lại.");
+                        $('#phonecreate').focus();
+                        return false
+                    }
+                })
+            }
+            else {
+                alert("SDT không hợp lệ.");
+                $('#phonecreate').focus();
+            }
+        }
+        function sendcode() {
+                let h = $('#codecreate').val();
+                axios.post('/api/check_code_reset_password', {
+                    reset_code: h,
+                    phone: phone
+                }).then((res) => {
+
+                    if (res.data.code == 1000) {
+                        let html = " <div  style='background-color:#f1f1f1; height:300px' >";
+                        html += "<div class='row'><br><div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' ><div class='col-xs-3'></div><div class='col-xs-6' style='background-color:white; height:250px''>";
+                        html += "<div  id='login1'  ><h4 style='text-align: center;font-weight: bold;'>Quên tài khoản MOKI</h4><div class='col-xs-1'></div><div><hr>";
+                        html += "<div class='col-xs-5'style='font-size:16px;font-weight: bold;' >Nhập mật khẩu mới để tiếp tục:</div>";
+                        html+="<input class='form-control' type='password' id='passnew1' name='user' placeholder='  Mật khẩu mới' required><div><br>";
+                        html+="<div class='col-xs-5'></div><input class='form-control' type='password'placeholder='  Vui long nhập lại mật khẩu' name='pass' id='passnew2'>"
+                        html += " <br><div class='col-xs-5'></div><button  onclick='changepassword()' style='height: 25px; background: #f16e8e;font-weight: bold;'>Tiếp tục! </button><br>";
+                        html += "<div class='col-xs-1'></div></div></div></div> </div><br></div><hr>";
+                        document.getElementById('login1').innerHTML = html
+                    }
+                    else alert(res.data.message);
+                })
+            }
+            function changepassword() {
+                let h = $('#passnew1').val();
+                let k = $('#passnew2').val();
+                alert(h + "  " + k);
+                if (h.length < 6) {
+                    alert("Mật khẩu yếu, vui lòng thử lại.");
+                    $('#passnew1').val("").focus();
+                    $('#passnew2').val("");
+                    return false
+                }
+                if (h != k) {
+                    alert("Có lỗi với password mới.");
+                    $('#passnew1').val("").focus();
+                    $('#passnew2').val("");
+                }
+                if (h.length > 5 && h == k) {
+                    axios.post('/api/changepass', {
+                        phone: phone,
+                        passnew: h
+                    }).then((res) => {
+                        alert("Thành công, vui lòng đăng nhập lại để sử dụng dịch vụ");
+                        window.location.reload();
+                    })
+                }
+            }
+        function sendlogin() {
+
+            let phone = $('#phone').val();
+            let pass = $('#pass').val();
+            console.log(phone + pass);
+            if (phone.length == 10 && pass.length > 5) {
+                axios.post('/api/login', {
+                    phone: phone,
+                    pass: pass
+                }).then((res) => {
+                    console.log(res.data);
+                    if (res.data.code == 1000) {
+                        alert("Chào mừng bạn quay lại.");
+                        window.localStorage.setItem('token', res.data.data.token);
+                        user = res.data.data;
+                        window.location.reload('/');
+                    }
+                    else {
+                        alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
+                        $('#phone').val("").focus();
+                        $('#pass').val("");
+                    }
+                })
+            }
+            else {
+                alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
+                $('#phone').val("").focus();
+                $('#pass').val("");
+            }
+
+        }
+        function change() {
+            document.getElementById("sale").style.color = "#ff789e";
+        }
+        function change1() {
+            document.getElementById("sale").style.color = "gray";
+        }
+        function change2() {
+            document.getElementById("intro").style.color = "#ff789e";
+        }
+        function change3() {
+            document.getElementById("intro").style.color = "gray";
+        }
+        function change4() {
+            document.getElementById("shop").style.color = "#ff789e";
+        }
+        function change5() {
+            document.getElementById("shop").style.color = "gray";
+        }
+        $(document).ready(function () {
+            $("#an").click(function () {
+                $("#1").slideToggle();
+                $("#2").slideToggle();
+                $("#3").slideToggle();
+                $("#4").slideToggle();
+                $("#5").slideToggle();
+                $("#6").slideToggle();
+
+            });
+            $("#mac").click(function () {
+                $("#m1").slideToggle();
+                $("#m2").slideToggle();
+                $("#m3").slideToggle();
+                $("#m4").slideToggle();
+                $("#m5").slideToggle();
+            });
+            $("#gd").click(function () {
+                $("#l1").slideToggle();
+                $("#l2").slideToggle();
+                $("#l3").slideToggle();
+                $("#l4").slideToggle();
+            });
+        });
+        function change6() {
+            document.getElementById("qa").style.color = "#ff789e";
+        }
+        function change7() {
+            document.getElementById("qa").style.color = "grey";
+        }
+        function change8() {
+            document.getElementById("dk").style.color = "#ff789e";
+        }
+        function change9() {
+            document.getElementById("dk").style.color = "grey";
+        }
+        function change10() {
+            document.getElementById("baomat").style.color = "#ff789e";
+        }
+        function change11() {
+            document.getElementById("baomat").style.color = "grey";
+        }
+        function change12() {
+            document.getElementById("quyche").style.color = "#ff789e";
+        }
+        function change13() {
+            document.getElementById("quyche").style.color = "grey";
+        }
+        function category(str) {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 'fast');
+            axios.post('/api/get_category', {
+                category_id: str,
+                index: 0,
+                count: 20
+            }).then((res) => {
+                //console.log("thuan");
+                console.log(res);
+                var html = "";
+                if (str == 1) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>Bé Ăn</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/(1)%20B%C3%A9%20%C4%83n.jpg' style='width:100%;'>"
+                }
+                else if (str == 2) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>Bé Mặc</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/b%C3%A9%20m%E1%BA%B7c.jpg' style='width:100%;'>"
+                }
+                else if (str == 3) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>ĐỒ Dùng Gia Đình</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/do%20dung%20gia%20dinh.jpg' style='width:100%;'>"
+                }
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/" + res.data.data[i].id + "'style='text-decoration: none;'> ";
+                    html += "  <div class=' anhbean col-md-4'>";
+                    html += "<img src='" + res.data.data[i].imgavata + "'style='text-align: center;' width= '100%' height='100px'; />";
+                    html += "<div class='center gachphancach'><div style='text-align: center;height:30px;'>" + res.data.data[i].name + "</div>"
+                    html += "<div class='chu '><h4>" + res.data.data[i].price + "đ</h4>";
+                    html += " </div></div> </div></a>"
+
+                }
+                document.getElementById('result').innerHTML = html;
+            })
+        }
+        function brand(str) {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 'fast');
+            axios.post('/api/get_list_brands',
+                {
+                    brand: str,
+                    index: 0,
+                    count: 20
+
+                }
+            ).then((res) => {
+                console.log(res);
+                var html = "";
+                if (str == 11) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>GHẾ ĂN BỘT CHO BÉ</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/1(2).jpg' style='width:100%;'>"
+                }
+                else if (str == 12) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>BÌNH SỮA VÀ PHỤ KIỆN</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/2.jpg' style='width:100%;'>"
+                }
+                else if (str == 4) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>SẢN PHẨM KHÁC</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/61(1).jpg' style='width:100%;'>"
+                }
+                else if (str == 13) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>SỮA BỘT CÁC LOẠI</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/4.jpg' style='width:100%;'>"
+                }
+                else if (str == 14) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>BỘT, CHÁO, BÁNH ĂN DẶM</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/10.jpg' style='width:100%;'>"
+                }
+                else if (str == 15) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>ĐỒ DÙNG PHỤC VỤ ĂN UỐNG</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/19.jpg' style='width:100%;'>"
+                }
+                else if (str == 16) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>ĐỒ UỐNG ĐÓNG HỘP CHO BÉ</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/7.png' style='width:100%;'>"
+                }
+                else if (str == 31) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>PHÒNG BẾP</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/b%E1%BA%BFp%20c%C3%A1c%20lo%E1%BA%A1i(1).jpg' style='width:100%;'>"
+                }
+                else if (str == 32) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>PHÒNG TẮM</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/m%E1%BA%AFc%20ph%C6%A1i%20qu%E1%BA%A7n%20%C3%A1o.jpg' style='width:100%;'>"
+                }
+                else if (str == 33) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>PHÒNG KHÁCH</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/b%C3%A0n%20gh%E1%BA%BF.jpg' style='width:100%;'>"
+                }
+                else if (str == 34) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>PHÒNG NGỦ</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/t%E1%BB%A7%20%C4%91%E1%BB%B1ng%20%C4%91%E1%BB%93.jpg' style='width:100%;'>"
+                }
+                else if (str == 21) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>GIÀY DÉP CHO BÉ</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/dep%201(1).jpeg' style='width:100%;'>"
+                }
+                else if (str == 22) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>MŨ THỜI TRANG</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/m%C5%A9%20th%E1%BB%9Di%20trang.jpg' style='width:100%;'>"
+                }
+                else if (str == 23) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>ĐỒ SƠ SINH</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/qu%E1%BA%A7n%20%C3%A1o%20s%C6%A1%20sinh.jpg' style='width:100%;'>"
+                }
+                else if (str == 24) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>PHỤ KIỆN THỜI TRANG KHÁC</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/ph%E1%BB%A5%20ki%E1%BB%87n%20hco%20b%C3%A9%201.jpg' style='width:100%;'>"
+                }
+                else if (str == 25) {
+                    html += "<h1 style='text-align:center;color:#ff789e ;'>THỜI TRANG CHO BÉ</h1><hr>"
+                    html += "<img  src='https://moki.vn/images/images/b%C3%A9%20trai.jpg' style='width:100%;'>"
+                }
+
+                html += "<br><br>"
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/" + res.data.data[i].id + "'style='text-decoration: none;'> ";
+                    html += "  <div class=' anhbean col-md-4'>";
+                    html += "<img src=" + res.data.data[i].imgavata + " style='width: 100%;text-align: center;height:150px;' />";
+                    html += "<div class='center gachphancach'><div style='text-align: center;height:30px;'>" + res.data.data[i].name + "</div>"
+                    html += "<div class='chu '><h4>" + res.data.data[i].price + "đ</h4>";
+                    html += " </div></div> </div></a>"
+
+                }
+                // $('#product').innerHTML = html;
+                document.getElementById('result').innerHTML = html;
+            })
+        }
     </script>
+
 </head>
 
 <body>
+    <script>
+        document.getElementsByTagName("body")[0].onload = getinfor;
+        function getinfor() {
+            if (localStorage.getItem("token") != null) {
+                document.getElementById('login').innerHTML = "Hello";
+                document.getElementById('singup').innerHTML = "Thoat";
+            }
+            let a = `<%- id.id %>`;
+            axios.post('/api/get_product', {
+                id: a
+            }).then((res) => {
+                event.preventDefault();
+                console.log(res);
+                var html = "";
+                html += "<div><h1 style='text-align:center;color:#ff789e ;'>Thông tin sản phẩm " + res.data.data.name + "</h1><hr>";
+                html += "<div class='gcontent'>";
+                html += "<div class='col-md-6'> <table  > <tr width='25%'><td width='100px' height='25%'><img src='" + res.data.data.img[0] + "'width='100%' onmouseover='b(`" + res.data.data.img[0] + "`);'></td>";
+                html += "<td rowspan='4'  id='re'>&nbsp;&nbsp;<img src='" + res.data.data.imgavata + "'width='300px'height='300px'></td></tr>";
+                for (var i = 1; i < res.data.data.img.length; i++) {
+                    html += "<tr><td width='50px' height='25%'><img src='" + res.data.data.img[i] + "' width='100%' onmouseover='b(`" + res.data.data.img[i] + "`);'></td></tr>";
+                }
+                html += "</table><hr>";
+                html += "<table> <tr> <td><button id='like' style='margin-left: 50px' class='button_input1 glyphicon glyphicon-thumbs-up' onclick='like1();'></button>";
+                html += " </td><td><button style='margin-left: 50px' id='dislike' class='button_input1 glyphicon glyphicon-thumbs-down' onclick='dislike1();'></button></td>";
+                html += "<td> <button style='margin-left: 50px;font-size:24px; background-color: gold' onclick='baocao()'>report</button></td></tr>";
+                html += "<tr><td colspan='3' id='report'></td></tr></table>";
+                html += "</div>"
+                html += "<div class='col-md-6'><h3>" + res.data.data.name + "</h3>";
+                html += "<h3 style='font-size: 20px; font-weight: 700; color: #502625;'>" + res.data.data.price + "₫</h3><hr>";
+                html += "<h5>Sản phẩm bán bởi shop:<a href='/store/" + res.data.data.id_owner + "'>" + res.data.data.shop_name + "</a></h5>"
+                html += "<h5>Số sản phẩm:<b>" + res.data.data.numberproduct + "</b></h5>";
+                html += "<h5>Ngày tham gia:<b>" + res.data.data.time_creat + "</b></h5><hr>";
+                html += "<h5>Trạng thái:<b>" + res.data.data.state + "</b></h5>";
+                let sanpham = "";
+                switch (res.data.data.brand) {
+                    case 11: sanpham = "Ghế ăn bột cho bé"; break;
+                    case 12: sanpham = "Bình sữa và phụ kiện"; break;
+                    case 13: sanpham = "Sữa bột các loại"; break;
+                    case 14: sanpham = "Bột,Cháo, Bánh ăn dặm"; break;
+                    case 15: sanpham = "Đồ dùng phục vụ ăn uống"; break;
+                    case 16: sanpham = "Đồ uống đóng hộp cho bé"; break;
+                    case 21: sanpham = "Giày dép cho bé"; break;
+                    case 22: sanpham = "Mũ thời trang"; break;
+                    case 23: sanpham = "Đồ sơ sinh"; break;
+                    case 24: sanpham = "Phụ kiện thời trang khác"; break;
+                    case 31: sanpham = "Phòng bếp"; break;
+                    case 32: sanpham = "Phòng tắm giặt"; break;
+                    case 33: sanpham = "Phòng Khách"; break;
+                    case 34: sanpham = "Phòng ngủ"; break;
+                    case 4: sanpham = "Sản phẩm khác"; break;
+                    case 25: sanpham = "Thời trang cho bé"; break;
+                }
+                html += "<h5>Thuộc danh mục:<b onclick=brand(" + res.data.data.brand + ")>" + sanpham + "</b></h5><hr>";
+                html += "<h5>Số lượt like:<b style='margin-left:5px'id='l'>" + res.data.data.like.length + "</b></h5>";
+                dlike = res.data.data.like.length;
+                dilike = res.data.data.dislike.length;
+                html += "<h5>Số lượt dislike:<b style='margin-left:5px'id='dl'>" + res.data.data.dislike.length + "</b></h5>";
+                html += "<h5>Số lượt report:<b style='margin-left:5px'id='rp'>" + res.data.data.report.length + "</b></h5><hr>";
+                html += "</div></div>";
+                html += "<div style= 'height:30px;background-color:#f1f1f1;'>";
+                html += "&nbsp;&nbsp;&nbsp;<k onclick='mota1(`" + res.data.data.described + "`);'> Mô tả sản phẩm</k>&nbsp;&nbsp;/&nbsp;&nbsp;<k onclick='comment(" + res.data.data.id + ")'> Đánh giá/phản hồi</k></div>";
+                html += "<div style= 'height:auto;background-color:white;' id='mota'><h4>" + res.data.data.described + "</h4></div></div>";
+                document.getElementById('result').innerHTML = html;
+
+            });
+            axios.post('/api/home', {
+                index: 0,
+                count: 5
+            }).then((res) => {
+                $('#mes').addClass("hidden");
+                //console.log(res.data.data[0].id);
+                var html = "";
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/" + res.data.data[i].id + "'style='text-decoration: none;'> ";
+                    html += "<table><tr><th></th><th></th><th></th></tr>"
+                    html += " <tr><th><img src=" + res.data.data[i].imgavata + " height='75px' width='75px' > </th>"
+                    html += " <th>&nbsp; &nbsp;&nbsp;&nbsp;</th><td align='left' style='font-size: 14px; color: #686868;'>" + res.data.data[i].name + "</td></tr>";
+                    html += "<tr><th></th><th></th><th style='font-size: 20px; font-weight: 700; color: #502625;'>" + res.data.data[i].price + "₫</th></tr></table></a><hr>"
+
+                }
+                // $('#product').innerHTML = html;
+                document.getElementById('newproduct').innerHTML = html;
+                $('#produ').addClass('animated animated-bounce');
+
+            })
+            axios.post('/api/get_category',{
+                category_id: 1,
+                index:0,
+                count:9
+            }).then((res)=>{
+                //console.log("thuan");
+                console.log(res);
+                var html = "";
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/"+res.data.data[i].id+"'style='text-decoration: none;'> ";
+                    html+="  <div class=' anhbean col-md-4'>";
+                    html+="<img src='"+res.data.data[i].imgavata + "'style='text-align: center;' width= '100%' height='100px'; />";
+                    html+="<div class='center gachphancach'><div style='text-align: center;height:30px;'>"+res.data.data[i].name+"</div>"
+                    html+="<div class='chu '><h4>"+res.data.data[i].price +"đ</h4>";
+                    html+=" </div></div> </div></a>"
+
+                }
+                document.getElementById('bean').innerHTML = html;
+            })
+            axios.post('/api/get_category',{
+                category_id: 2,
+                index:0,
+                count:9
+            }).then((res)=>{
+                //console.log("thuan");
+                console.log(res);
+                var html = "";
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/"+res.data.data[i].id+"'style='text-decoration: none;'> ";
+                    html+="  <div class=' anhbean col-md-4'>";
+                    html+="<img src='"+res.data.data[i].imgavata + "'style='text-align: center;' width= '100%' height='100px'; />";
+                    html+="<div class='center gachphancach'><div style='text-align: center;height:30px;'>"+res.data.data[i].name+"</div>"
+                    html+="<div class='chu '><h4>"+res.data.data[i].price +"đ</h4>";
+                    html+=" </div></div> </div></a>"
+
+                }
+                document.getElementById('bemac').innerHTML = html;
+            })
+            axios.post('/api/get_category',{
+                category_id: 3,
+                index:0,
+                count:9
+            }).then((res)=>{
+                //console.log("thuan");
+                console.log(res);
+                var html = "";
+                for (let i = 0; i < res.data.data.length; i++) {
+                    html += "<a href='/getproduct/"+res.data.data[i].id+"'style='text-decoration: none;'> ";
+                    html+="  <div class=' anhbean col-md-4'>";
+                    html+="<img src='"+res.data.data[i].imgavata + "'style='text-align: center;' width= '100%' height='100px'; />";
+                    html+="<div class='center gachphancach'><div style='text-align: center;height:30px;'>"+res.data.data[i].name+"</div>"
+                    html+="<div class='chu '><h4>"+res.data.data[i].price +"đ</h4>";
+                    html+=" </div></div> </div></a>"
+
+                }
+                document.getElementById('giadinh').innerHTML = html;
+            })
+
+
+        }
+
+    </script>
     <section class="top_header_wrapper">
         <div class="top_header_group">
             <div class="top_header">
@@ -166,9 +1116,7 @@
                             height="25px">&nbsp;&nbsp;&nbsp;
                         Sing Up
                     </a>
-                    <script>
 
-                    </script>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -188,14 +1136,9 @@
             </div>
             <div class="col-xs-5"></div>
             <div class="search col-xs-5 ">
-                <script>
-
-                </script>
-
                 <input type="text" id="search" class="search_input" name="search" placeholder="Tìm kiếm sản phẩm" value=""
                     required>
-                <button onclick="search()" class=" ai glyphicon glyphicon-search"></button>
-
+                <button type="submit" onclick="search()" class="button_input glyphicon glyphicon-search"></button>
                 <div style=" margin-left: -100px; ">
                     <table>
                         <tr>
@@ -290,7 +1233,7 @@
     <div id="mainpage">
         <div class="container">
             <div class=" col-xs-3 ">
-                <div class="ab">
+                <div class="ab" style=" background: #f0f0f0 url(//cdn.shopify.com/s/files/1/1786/6805/t/2/assets/bkg_collection.jpg?1013842…) 0 0 repeat;">
                     <div class="list">
                         <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-9/46438423_196665437919778_5703607004472279040_n.png?_nc_cat=103&_nc_oc=AWNPWzELaTb1xfa1dHxg4RX-6drtPvFyNCv2tnGdI7mH6Rwt1Fw2vwv_mC2HqA&_nc_ht=scontent.fhan2-1.fna&oh=9b1c27a838b1d19808ce268748002e88&oe=5C669465"
                             height="100%;">
@@ -298,482 +1241,168 @@
                     </div>
                     <br>
                     <div style="font-size: 16px; color: #686868;">
-                        <span onclick="s(1)">Bé ăn</span>
-                        <ul id="test1" class="hidden">
-                            <ol> <a href="#" onclick="brand(11)"> THỰC PHẨM CHO BÉ.</a></ol>
-                            <ol><a href="#" onclick="brand(12)">SỮA BỘT CÁC LOẠI.</a></ol>
-                            <ol><a href="#" onclick="brand(13)">ĐỒ DÙNG PHỤC VỤ ĂN UỐNG.</a></ol>
-                            <ol><a href="#" onclick="brand(14)">BÌNH SỮA VÀ PHỤ KIỆN. </a></ol>
-                            <ol><a href="#" onclick="brand(15)">THỰC PHẨM ĐÓNG HỘP CHO BÉ.</a></ol>
-                            <ol><a href="#" onclick="brand(10)">All</a></ol>
+                        <ul type="none" id="an">
+                            <span>Bé Ăn</span>
+                            <li id="1">
+                                <k onclick="brand(11);"> Ghế ăn bột cho bé</k>
+                            </li>
+                            <li id="2">
+                                <k onclick="brand(12);">Bình sữa và phụ kiện</k>
+                            </li>
+                            <li id="3">
+                                <k onclick="brand(13);">Sữa bột các loại</k>
+                            </li>
+                            <li id="4">
+                                <k onclick="brand(14);">Bột, Cháo, Bánh ăn dặm</k>
+                            </li>
+                            <li id="5">
+                                <k onclick="brand(15);">Đồ dùng phục vụ ăn uống</k>
+                            </li>
+                            <li id="6">
+                                <k onclick="brand(16);">Đồ uống đóng hộp cho bé</k>
+                            </li>
                         </ul>
                         <hr>
-                        <span onclick="s(2)">BÉ MẶC.</span>
-                        <ul id="test2" class="hidden">
-                            <ol><a href="#" onclick="brand(21)">GIÀY DÉP CHO BÉ.</a></ol>
-                            <ol> <a href="#" onclick="brand(21)">ĐỒ SƠ SINH</a></ol>
-                            <ol><a href="#" onclick="brand(20)">All</a></ol>
+                        <ul type="none" id="mac">
+                            <span>Bé Mặc</span>
+                            <li id="m1">
+                                <k onclick="brand(21);">Giày dép cho bé</k>
+                            </li>
+                            <li id="m2">
+                                <k onclick="brand(22);">Mũ thời trang</k>
+                            </li>
+                            <li id="m3">
+                                <k onclick="brand(23);">Đồ sơ sinh</k>
+                            </li>
+                            <li id="m4">
+                                <k onclick="brand(24);"> Phụ kiện thời trang khác</k>
+                            </li>
+                            <li id="m5">
+                                <k onclick="brand(25);"> Thời trang cho bé</k>
+                            </li>
                         </ul>
                         <hr>
-                        <span onclick="s(3)">DÀNH CHO MẸ</span>
-                        <ul id="test3" class="hidden">
-                            <ol><a href="#" onclick="brand(31)"> MẸ MANG THAI.</a></ol>
-                            <ol><a href="#" onclick="brand(32)">MẸ SAU KHI SINH.</a></ol>
-                            <ol><a href="#" onclick="brand(33)">SỮA BÀ BẦU.</a></ol>
-                            <ol> <a href="#" onclick="brand(34)">DẦU GỘI, MỸ PHẨM.</a></ol>
-                            <ol><a href="#" onclick="brand(35)">SÁCH CHO MẸ.</a></ol>
-                            <ol><a href="#" onclick="brand(36)">GIÀY DÉP CHO MẸ.</a></ol>
-
-                            <ol> <a href="#" onclick="brand(30)">All</a></ol>
+                        <ul type="none" id="gd">
+                            <span>Đồ dùng gia đình</span>
+                            <li id="l1">
+                                <k onclick="brand(31);"> Phòng bếp</k>
+                            </li>
+                            <li id="l2">
+                                <k onclick="brand(32);">Phòng tắm giặt</k>
+                            </li>
+                            <li id="l3">
+                                <k onclick="brand(33);">Phòng khách</k>
+                            </li>
+                            <li id="l4">
+                                <k onclick="brand(34);">Phòng ngủ</k>
+                            </li>
                         </ul>
-
                         <hr>
 
-                        <span onclick="s(4)">SẢN PHẨM KHÁC.</span>
-                        <ul id="test4" class="hidden">
-                            <ol><a href="#" onclick="brand(41)">ĐỒ DÙNG GIA ĐÌNH.</a></ol>
-                            <ol><a href="#" onclick="brand(42)">BÉ CHƠI MÀ HỌC</a></ol>
-                            <ol><a href="#" onclick="brand(43)">BÉ NGỦ.</a></ol>
-
-                        </ul>
+                        <ul><span>
+                                <k onclick="brand(4);">Sản Phẩm Khác</k>
+                            </span></ul>
                         <hr>
 
                     </div>
-
-
                 </div>
-                <div>
-                    <img width="100%" src="http://moki.vn/files/bannerhome/e861a99a5e9f9936516459da3afdbb0b.jpg" alt="">
-                </div>
-                <div>
-                    <h4 style="font-family: Oleo Script;margin-top: 40px;">SẢN PHẨM MỚI NHẤT</h4>
-                    <div id="product"></div>
+                <div style="background-color:#fff">
+                    <div class="container ">
+                        <h3>Sản phẩm mới nhất</h3>
+                    </div>
+                    <hr>
+                    <div>
+                        <img id="mes" style="height: 100px; width: 100%" src="http://storage.ning.com/topology/rest/1.0/file/get/558275?profile=original">
+                        <div id="newproduct"></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-9" id="sd">
-                <img id="mes" style="height: 400px; width: 400px" src="http://storage.ning.com/topology/rest/1.0/file/get/558275?profile=original">
-                <div style="height: 300px"></div>
-
+            <div class=" col-xs-9 ab1" id="sanpham">
+                <div id="result">
+                    <h1 style='text-align:center;color:#ff789e ;'>MOKI-SHOP TRAO ĐỔI MUA BÁN</h1>
+                    <hr>
+                    <img src='https://moki.vn/images/images/s%C3%A1ch%20cho%20m%E1%BA%B9.png' style='width:100%;'>
+                </div>
+                <br><br>
                 <div>
-                    <div class="col-xs-6">
-                        <img width="400px;" style="margin-right: 10px;" src="http://moki.vn/files/bannerhome/24a24183a231fd83ec5fdcf9fe16cec9.jpg"
-                            alt="Banner header 01">
-
+                    <div>
+                        <a><img src="https://moki.vn/files/bannerhome/bb533e77229fe2582eedbb38556386ab.jpg" style="width:821px;" /></k>
                     </div>
+                    <div class="grcontent">
+                        <div class="col-md-4">
 
-                    <div class="col-xs-6">
-                        <img width="400px;" style="margin-left: 10px" src="http://moki.vn/files/bannerhome/1167610aa17b0813233fe82d99403e41.jpg"
-                            alt="">
+                            <div class="chu" style="border-bottom: 1px dashed #ff789e;">
+                                <div class='gachchanba' style='font-size: 20px; font-weight: 700; color: #502625;'
+                                    onclick="category(1);">BÉ ĂN</div>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(11);"> Ghế ăn bột cho bé</k>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(12);">Bình sữa và phụ kiện</k>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(13);">Sữa bột các loại</k>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(14);">Bột, Cháo, Bánh ăn dặm</k>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(15);">Đồ dùng phục vụ ăn uống</k>
+                            </div>
+                            <div class="dongbean">
+                                <k onclick="brand(16);">Đồ uống đóng hộp cho bé</k>
+                            </div>
+                            <img src="https://moki.vn/images/files/anh_banner_left_moi/9.jpg" style="width: 256px;margin-top: 20px; " />
+                        </div>
+                        <div class="col-md-8" id="bean"></div>
+                    </div>
+                    <div>
+                        <a><img src="https://moki.vn/files/bannerhome/bf5170ebef2f6025cdc989ff3754cdfe.jpg" style="width:821px;" /></a>
+                    </div>
+                    <div class="grcontent">
+                        <div class="col-md-4">
+                            
+                            <div class="chu" style="border-bottom: 1px dashed #ff789e;">
+                                    <div class='gachchanba'style='font-size: 20px; font-weight: 700; color: #502625;'onclick="category(2);">BÉ MẶC</div>
+                            </div>
+                            <div class="dongbean"><k onclick="brand(21);">Giày dép cho bé</k></div>
+                            <div class="dongbean"><k onclick="brand(22);">Mũ thời trang</k></div>
+                            <div class="dongbean"><k onclick="brand(23);">Đồ sơ sinh</k></div>
+                            <div class="dongbean"><k onclick="brand(24);"> Phụ kiện thời trang khác</k></div>
+                            <div class="dongbean"><k onclick="brand(25);"> Thời trang cho bé</k></div>
+                            <img src="https://moki.vn/images/files/anh_banner_left_moi/1.jpg" style="width: 256px;margin-top: 20px; "/>
+                        </div>
+                        <div class="col-md-8" id="bemac"></div>
+                    </div>
+                    <div>
+                        <a><img src="https://moki.vn/files/bannerhome/022f7099d0123a6f27a51be045061552.jpeg" style="width:821px;" /></a>
+                    </div>
+                    <div class="grcontent">
+                        <div class="col-md-4">
+                            <br>
+                                <H4 style='font-size: 20px; font-weight: 700; color: #502625;'onclick="category(3);">ĐỒ DÙNG GIA ĐÌNH</H4>
+                            <div  style="border-bottom: 1px dashed #ff789e;">
+                                <div class='gachchanba'></div>
+                            </div>
+                            <div class="dongbean"><k onclick="brand(31);"> Phòng bếp</k></div>
+                            <div class="dongbean"><k onclick="brand(32);">Phòng tắm giặt</k></div>
+                            <div class="dongbean"><k onclick="brand(33);">Phòng khách</k></div>
+                            <div class="dongbean"><k onclick="brand(34);">Phòng ngủ</k></div>
+                            <img src="https://moki.vn/images/files/anh_banner_left_moi/6.jpeg" style="width: 256px;margin-top: 20px; "/>
+                        </div>
+                        <div class="col-md-8" id="giadinh">
+                            
+                        </div>
                     </div>
                 </div>
-                <div style="float:  inherit;margin-top:20px">
-                    <span>
-                        <h3>SẢN PHẨM ƯU ĐÃI</h3>
-                    </span>
-                </div>
-                <!-- bé ăn -->
-                <div>
-                    <img src="http://moki.vn/files/bannerhome/bb533e77229fe2582eedbb38556386ab.jpg" alt="">
-                    <div class="col-xs-4" style="height: 330px;">
-                        <h3>BÉ ĂN.</h3>
-                        <ol> <a href="#" onclick="brand(11)">
-                                <h6>THỰC PHẨM CHO BÉ.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(12)">
-                                <h6>SỮA BỘT CÁC LOẠI.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(13)">
-                                <h6>ĐỒ DÙNG PHỤC VỤ ĂN UỐNG.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(14)">
-                                <h6>BÌNH SỮA VÀ PHỤ KIỆN.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(15)">
-                                <h6>THỰC PHẨM ĐÓNG HỘP CHO BÉ.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(10)">
-                                <h6>All</h6>
-                            </a></ol>
-                    </div>
-                    <div id="productbean"></div>
-                </div>
-
-                <!-- bé mặc -->
-
-                <div>
-                    <img src="http://moki.vn/files/bannerhome/bf5170ebef2f6025cdc989ff3754cdfe.jpg" alt="">
-                    <div class="col-xs-4" style="height: 330px;margin-top: 30px;">
-                        <h3>BÉ MẶC.</h3>
-                        <ol> <a href="#" onclick="brand(11)">
-                                <h6>GIÀY DÉP CHO BÉ.</h6>
-                            </a></ol>
-                        <ol><a href="#" onclick="brand(12)">
-                                <h6>ĐỒ SƠ SINH.</h6>
-                            </a></ol>
-
-                        <ol><a href="#" onclick="brand(10)">
-                                <h6>All</h6>
-                            </a></ol>
-                    </div>
-                    <div id="productbemac"></div>
-                </div>
-
-
-
             </div>
-
         </div>
-        <script>
-            function singup() {
-                event.preventDefault();
-                if (localStorage.getItem("token") != null) {
-                    localStorage.clear();
-                    window.location.reload();
-                }
-                else {
-
-                    $('#mainpage').addClass('hidden');
-                    let html = "<div class='container'>";
-                    html += "<h3>Dang ky tai khoan Moki</h3><br><div class='col-xs-1'></div>";
-                    html += "<h4>gfdgfdfbsdkfhglfsd</h4>"
-                    html += "<div class='col-xs-3'><b>Nhap so dien thoai</b></div>"
-                    html += "<div class='col-xs-7'><input type='number' id='phone' width='300px' name='user' placeholder='Vui lòng nhập số điện thoại'><br><br><br><input type='password'placeholder='Vui long nhập mật khẩu' name='pass' id='pass'>"
-                    html += "<h4 onclick='sendsingup()'><a >Tiep tuc</a></h4>"
-                    html += "</div></div>";
-                    document.getElementById('login1').innerHTML = html;
-                }
-            }
-            function sendsingup() {
-                let phone = $('#phone').val();
-                let pass = $('#pass').val();
-                if (phone.length == 10 & pass.length > 5) {
-                    axios.post('/api/singup', {
-                        phone: phone,
-                        pass: pass
-                    }).then((res => {
-                        console.log(res.data);
-                        if (res.data.code != 1000) {
-
-                        }
-                    }))
-                }
-                else {
-
-                    if (phone.length != 10) {
-                        $('#phone').val("").focus();
-                        $('#pass').val("");
-                        alert("SDT không hợp lệ, vui lòng kiểm tra lại!");
-                    }
-                    if (pass.length < 6) {
-                        $('#pass').val("").focus();
-                        alert("Mật khẩu quá ngắn, vui lòng thử lại!");
-                    }
-
-                }
-            }
-            function search() {
-                let name = $('#search').val();
-                console.log(name);
-                event.preventDefault();
-                axios.post('/api/search', {
-                    name: name,
-                    index: 0,
-                    count: 20
-
-                }).then((res) => {
-                    //
-                    console.log(res.data.data);
-                });
-                return true;
-            }
-            function login() {
-                if (localStorage.getItem("token") == null) {
-                    event.preventDefault();
-                    $('#mainpage').addClass('hidden');
-                    let html = "<div class='container as'>";
-                    html += "<h3>Dang nhap vao Moki</h3><hr><br><div class='col-xs-1'></div>";
-                    html += "<div class='col-xs-3 '><b>Nhap so dien thoai</b></div>"
-                    html += "<div class='col-xs-7 '><input type='number' id='phone' class='af' width='300px' name='user' placeholder='  Vui lòng nhập số điện thoại'><br><br><br><input class='af' type='password'placeholder='  Vui long nhập mật khẩu' name='pass' id='pass'>"
-                    html += "<h5 onclick='forgetpass()' class='ag'> Quên mật khẩu.</h5>"
-                    html += "<h4 onclick='sendlogin()' class='ad'>Tiep tuc</h4>"
-                    html += "</div></div>";
-                    document.getElementById('login1').innerHTML = html;
-
-
-                }
-                else {
-                    window.location.replace('/user');
-                }
-
-            }
-            function forgetpass() {
-                event.preventDefault();
-                $('#mainpage').addClass('hidden');
-                let html = "<div class='container as'>";
-                html += "<h3>Đăng nhập vào Moki</h3><hr><br><h4 style='margin-bottom:30px'>Vui lòng nhập số điện thoại để tiếp tục</h4><div class='col-xs-1'></div>";
-                html += "<div class='col-xs-3 '><b>Nhap so dien thoai</b></div>"
-                html += "<div class='col-xs-7 '><input type='number' id='phonecreate' class='af' width='300px' name='user' placeholder='  Vui lòng nhập số điện thoại'><br><br>"
-
-                html += "<h4 onclick='sendcreatecode()' class='ad'>Tiep tuc</h4>"
-                html += "</div></div>";
-                document.getElementById('login1').innerHTML = html
-            }
-            let phone;
-            function sendcreatecode() {
-                let k = $('#phonecreate').val();
-                if (k.length == 10) {
-                    phone = k;
-                    axios.post('/api/create_code_reset_password', {
-                        phone: k
-                    }).then((res) => {
-                        if (res.data.code == 1000) {
-                            let html = "<div class='container as'>";
-                            html += "<h3>Đăng nhập vào Moki</h3><hr><br><h4 style='margin-bottom:30px'>Vui lòng nhập mã xác nhận để tiếp tục</h4><div class='col-xs-1'></div>";
-                            html += "<div class='col-xs-3 '><b>Nhap mã xác nhận</b></div>"
-                            html += "<div class='col-xs-7 '><input type='number' id='codecreate' class='af' width='300px' name='user' placeholder='  Vui lòng nhập mã'><br><br>"
-
-                            html += "<h4 onclick='sendcode()' class='ad'>Tiep tuc</h4>"
-                            html += "</div></div>";
-                            document.getElementById('login1').innerHTML = html
-                        }
-                        else {
-                            alert(res.data.message + " hoặc SDT chưa được đăng ký, vui lòng kiểm tra lại.");
-                            $('#phonecreate').focus();
-                            return false
-                        }
-                    })
-                }
-                else {
-                    alert("SDT không hợp lệ.");
-                    $('#phonecreate').focus();
-                }
-            }
-            function sendcode() {
-                let h = $('#codecreate').val();
-                axios.post('/api/check_code_reset_password', {
-                    reset_code: h,
-                    phone: phone
-                }).then((res) => {
-
-                    if (res.data.code == 1000) {
-                        let html = "<div class='container as'>";
-                        html += "<h3>Đăng nhập vào Moki</h3><hr><br><h4 style='margin-bottom:30px'>Vui lòng nhập mật khẩu mới để tiếp tục</h4><div class='col-xs-1'></div>";
-                        html += "<div class='col-xs-3 '><b>Nhập mật khẩu mới</b></div>"
-                        html += "<div class='col-xs-7 '><input type='password' id='passnew1' class='af' width='300px' name='user' placeholder='  Mật khẩu mới'><br><br><br><input class='af' type='password'placeholder='  Vui long nhập lại mật khẩu' name='pass' id='passnew2'>"
-
-                        html += "<h4 onclick='changepassword()' class='ad'>Tiep tuc</h4>"
-                        html += "</div></div>";
-                        document.getElementById('login1').innerHTML = html
-                    }
-                    else alert(res.data.message);
-                })
-            }
-            function changepassword() {
-                let h = $('#passnew1').val();
-                let k = $('#passnew2').val();
-                alert(h + "  " + k);
-                if (h.length < 6) {
-                    alert("Mật khẩu yếu, vui lòng thử lại.");
-                    $('#passnew1').val("").focus();
-                    $('#passnew2').val("");
-                    return false
-                }
-                if (h != k) {
-                    alert("Có lỗi với password mới.");
-                    $('#passnew1').val("").focus();
-                    $('#passnew2').val("");
-                }
-                if (h.length > 5 && h == k) {
-                    axios.post('/api/changepass', {
-                        phone: phone,
-                        passnew: h
-                    }).then((res) => {
-                        alert("Thành công, vui lòng đăng nhập lại để sử dụng dịch vụ");
-                        window.location.reload();
-                    })
-                }
-            }
-            let user={};
-            function sendlogin() {
-
-                let phone = $('#phone').val();
-                let pass = $('#pass').val();
-                console.log(phone + pass);
-                if (phone.length == 10 && pass.length > 5) {
-                    axios.post('/api/login', {
-                        phone: phone,
-                        pass: pass
-                    }).then((res) => {
-                        console.log(res.data);
-                        if (res.data.code == 1000) {
-                            alert("Chào mừng bạn quay lại.");
-                            window.localStorage.setItem('token', res.data.data.token);
-user=res.data.data;
-                            window.location.reload('/');
-                        }
-                        else {
-                            alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
-                            $('#phone').val("").focus();
-                            $('#pass').val("");
-                        }
-                    })
-                }
-                else {
-                    alert("Thông tin bạn nhập không chính xác, vui lòng nhập lại.")
-                    $('#phone').val("").focus();
-                    $('#pass').val("");
-                }
-
-            }
-            function change() {
-                document.getElementById("sale").style.color = "#ff789e";
-            }
-            function change1() {
-                document.getElementById("sale").style.color = "gray";
-            }
-            function change2() {
-                document.getElementById("intro").style.color = "#ff789e";
-            }
-            function change3() {
-                document.getElementById("intro").style.color = "gray";
-            }
-            function change4() {
-                document.getElementById("shop").style.color = "#ff789e";
-            }
-            function change5() {
-                document.getElementById("shop").style.color = "gray";
-            }
-            function s(id) {
-                let ida = ['#test1', '#test2', '#test3', '#test4'];
-                for (let i = 0; i < ida.length; i++) {
-                    console.log(ida[i]);
-                    $(ida[i]).addClass('hidden');
-
-                }
-                $(ida[id - 1]).removeClass('hidden');
-
-            }
-            document.getElementsByTagName("body")[0].onload = getDefaultData;
-
-            function getDefaultData() {
-                alert("okass");
-                // event.preventDefault();
-                if (localStorage.getItem("token") != null) {
-                    document.getElementById('login').innerHTML = "Hello";
-                    document.getElementById('singup').innerHTML = "Thoat";
-                }
-                axios.post('/api/get_product', {
-                    id: `<%- id.id %>`,
-                }).then((res) => {
-                    $('#mes').addClass("hidden");
-                    console.log(res.data.data[0].name);
-                    var html = "";
-
-
-
-                    // $('#product').innerHTML = html;
-                    document.getElementById('product').innerHTML = html;
-
-
-                })
-            }
-            function change6() {
-                document.getElementById("qa").style.color = "#ff789e";
-            }
-            function change7() {
-                document.getElementById("qa").style.color = "grey";
-            }
-            function change8() {
-                document.getElementById("dk").style.color = "#ff789e";
-            }
-            function change9() {
-                document.getElementById("dk").style.color = "grey";
-            }
-            function change10() {
-                document.getElementById("baomat").style.color = "#ff789e";
-            }
-            function change11() {
-                document.getElementById("baomat").style.color = "grey";
-            }
-            function change12() {
-                document.getElementById("quyche").style.color = "#ff789e";
-            }
-            function change13() {
-                document.getElementById("quyche").style.color = "grey";
-            }
-
-        </script>
-        <style>
-            .ag {
-                margin: 30px 0px 0px 200px;
-            }
-
-            .af {
-                width: 300px;
-                font-size: 120%;
-                border: 1px solid;
-                border-radius: 5px;
-            }
-
-            .ad {
-                width: 20%;
-                height: 25px;
-                background: #f16e8e;
-                padding: 0 !important;
-                /* outline: none; */
-                border: 1px;
-                border-radius: 5px;
-                color: #fff;
-                box-shadow: 0 3px 0 #b91635;
-                margin-bottom: 50px;
-                margin-top: 40;
-                text-align: center;
-            }
-
-            .pro {
-
-                width: 250px;
-                height: 330px;
-                margin-right: 10px;
-                margin-bottom: 15px;
-                background: #fff;
-
-
-            }
-
-
-            .proimg {
-                margin-top: 15px;
-                width: 170px;
-                height: 190px;
-                overflow: hidden;
-            }
-        </style>
-        <!-- <div class="container ">
-            <div class=" col-xs-3">
-                <h3>Sản phẩm mới nhất</h3>
-
-            </div>
-            <div class="col-xs-8">
-                <img id="mes" style="height: 400px; width: 400px" src="http://storage.ning.com/topology/rest/1.0/file/get/558275?profile=original">
-
-
-                <div id="product"></div>
-            </div>
-        </div> -->
-        <div style="height: 100px"></div>
-
     </div>
-    <div id="login1">
+    <div id="login1"></div>
 
-    </div>
 
-    <div class="container">
-        <img class="col-xs-6" src="http://moki.vn/files/bannerhome/1c6dd44a8992105ec6515bcf87acd157.jpg" alt="">
-        <img class="col-xs-6" src="http://moki.vn/files/bannerhome/2d0bf524927cc9dfb800d90668b7239a.jpg" alt="">
-    </div>
-
-    <div class="button_page">
+    <div class="button_page" style=" background: #f0f0f0 url(//cdn.shopify.com/s/files/1/1786/6805/t/2/assets/bkg_collection.jpg?1013842…) 0 0 repeat;">
         <div class="row">
 
             <div class="col-xs- col-sm- col-md- col-lg-">
@@ -858,6 +1487,7 @@ user=res.data.data;
             <span style="font-size:14px;color:black; font-weight: bold"> Web truy cập:</span>
             <a href="">Bkstore.herokuapp.com</a>
         </div>
+        <button type="submit"></button>
 
     </div>
 </body>

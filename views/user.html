@@ -416,10 +416,6 @@
     <script>
         let a;
         function auth() {
-
-
-
-
             axios.post('api/resend_sms_verify', {
                 phone: a.phone
             }).then((res) => {
@@ -921,7 +917,7 @@ $('#moki').removeClass('hidden');
                 html += "<option value='25'>Thời trang cho bé</option>"
             }
             if (t.value == "3") {
-                html += "<option value='31>Phòng bếp</option>"
+                html += "<option value='31'>Phòng bếp</option>"
                 html += "<option value='32'>Phòng tắm, giặt</option>"
                 html += "<option value='33'>Phòng khách</option>"
                 html += "<option value='34'>Phòng ngủ</option>"
