@@ -413,6 +413,7 @@
         function report1() {
             let a = $('#subject').val();
             let b = $('#details').val();
+            if(a.length>0&&b.length>0){
             axios.post('/api/report_products', {
                 product_id: `<%- id.id %>`,
                 subject: a,
@@ -432,6 +433,11 @@
                     }
                 })
         }
+    else{
+        alert("Vui lòng nhập đủ thông tin");
+        $('#subject').focus();
+    }
+    }
         function singup() {
             if (localStorage.getItem("token") != null) {
                 localStorage.clear();
