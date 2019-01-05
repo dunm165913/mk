@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const auth = require("./auth");
 const app = Express();
 let server = require('http').Server(app);
-const bcrypt = require('bcryptjs');
+
 
 app.set('view engine','ejs');
 
