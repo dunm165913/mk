@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const auth = require("./auth");
 const app = Express();
-
+let server = require('http').Server(app);
 
 
 app.set('view engine','ejs');
@@ -52,5 +52,7 @@ app.use('/api',api);
 
 
 
-app.listen(process.env.PORT || 9000);
+server.listen(process.env.PORT || 4000, () => {
+    console.log("Server is listening on 3000");
+})
 
