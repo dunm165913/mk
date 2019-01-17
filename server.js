@@ -46,9 +46,6 @@ const api=require('./router/api');
 app.use('/api',api);
 
 
-
-
-
 server.listen(process.env.PORT || 4000, () => {
     console.log("Server is listening on 3000");
 })
