@@ -8,9 +8,6 @@ let server = require('http').Server(app);
 
 app.set('view engine','ejs');
 
-
-
-
 app.use(auth);
 
 app.use(bodyParser.urlencoded({ extended: true }));
